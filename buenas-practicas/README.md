@@ -48,7 +48,7 @@ Cada entrada se resume como: **regla → por qué → cuándo aplica**.
 
 **Regla:** revisar el diff generado por el agente con el mismo criterio que se revisaría el de una persona, especialmente en cambios grandes o en áreas críticas.
 **Por qué:** la velocidad de generación no es garantía de corrección; un cambio que "compila" o "no tira error" no necesariamente resuelve bien la tarea o no introduce efectos secundarios no buscados.
-**Cuándo aplica:** siempre antes de commitear, y con más rigor cuanto mayor sea el impacto potencial del cambio (producción, datos, seguridad).
+**Cuándo aplica:** siempre antes de commitear, y con más rigor cuanto mayor sea el impacto potencial del cambio (producción, datos, seguridad). Ver la skill de ejemplo [`revision-de-diffs`](../ejemplos/skills/revision-de-diffs/SKILL.md), que empaqueta esta regla como checklist accionable.
 
 ---
 
