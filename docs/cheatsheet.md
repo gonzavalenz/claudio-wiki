@@ -52,18 +52,18 @@ Ver [03 — Modelos](03-modelos.md).
 
 Ver [05](05-memoria.md), [08](08-skills.md), [10](10-hooks.md).
 
-## Subagentes: cuándo delegar
+## Subagents: cuándo delegar
 
 - Investigación abierta que toma varias búsquedas/lecturas.
 - Se puede paralelizar en tareas independientes.
 - Se busca una segunda opinión sin sesgo del contexto ya acumulado.
-- **No delegar entendimiento**: siempre dar al subagente todo el contexto que necesita para trabajar solo.
+- **No delegar entendimiento**: siempre dar al subagent todo el contexto que necesita para trabajar solo.
 
-Ver [09 — Subagentes](09-subagentes.md).
+Ver [09 — Subagents](09-subagents.md).
 
 ## Flujo recomendado ante una tarea nueva
 
-1. Explorar (directo o con subagente si es una búsqueda abierta).
+1. Explorar (directo o con subagent si es una búsqueda abierta).
 2. Planear el enfoque si hay ambigüedad real (modo plan).
 3. Ejecutar en pasos verificables.
 4. Revisar el diff y correr tests/verificación real antes de dar por terminado.
@@ -73,7 +73,7 @@ Ver [14 — Flujos de trabajo](14-flujos-de-trabajo.md).
 ## Costos: para no gastar de más
 
 - Modelo acorde a la tarea, no siempre el más grande.
-- Delegar exploración pesada a subagentes en vez de inflar el contexto principal.
+- Delegar exploración pesada a subagents en vez de inflar el contexto principal.
 - Contexto completo desde el pedido inicial (evita rondas de ida y vuelta).
 - Cerrar sesiones/tareas que ya cumplieron su propósito.
 

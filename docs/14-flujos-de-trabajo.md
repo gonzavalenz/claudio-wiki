@@ -2,7 +2,7 @@
 
 ## Flujos típicos
 
-**Explorar código.** Antes de tocar nada, entender qué existe: dónde está implementado algo, cómo se relacionan las piezas, qué convenciones ya sigue el proyecto. Para exploraciones abiertas o que van a tomar varias búsquedas, conviene delegarlas en un [subagente](09-subagentes.md) de solo lectura en vez de hacerlo inline y ensuciar el contexto principal.
+**Explorar código.** Antes de tocar nada, entender qué existe: dónde está implementado algo, cómo se relacionan las piezas, qué convenciones ya sigue el proyecto. Para exploraciones abiertas o que van a tomar varias búsquedas, conviene delegarlas en un [subagent](09-subagents.md) de solo lectura en vez de hacerlo inline y ensuciar el contexto principal.
 
 **Planear antes de implementar.** Para tareas no triviales, conviene separar "decidir el enfoque" de "escribirlo": primero acordar la estrategia (qué archivos van a cambiar, qué approach se va a seguir, qué alternativas se descartan y por qué) y recién después ejecutar. Esto evita reescribir trabajo por haber arrancado con el enfoque equivocado.
 
@@ -21,6 +21,6 @@ Regla práctica: si al leer el pedido en voz alta hay más de una forma razonabl
 
 - **Dar contexto completo desde el pedido inicial**, no de a gotas — ahorra vueltas de ida y vuelta innecesarias.
 - **Cortar tareas grandes en pasos verificables**: es más fácil corregir el rumbo después de un paso chico que después de una tarea enorme hecha de punta a punta con el enfoque equivocado.
-- **Aprovechar la exploración en paralelo** (varios [subagentes](09-subagentes.md) investigando cosas independientes a la vez) en vez de secuencial, cuando las preguntas no dependen entre sí.
+- **Aprovechar la exploración en paralelo** (varios [subagents](09-subagents.md) investigando cosas independientes a la vez) en vez de secuencial, cuando las preguntas no dependen entre sí.
 - **Ajustar el nivel de autonomía** (ver [Permisos](07-permisos.md)) según cuánta confianza ya se tiene en el comportamiento del agente en ese repo puntual — no hace falta confirmar todo siempre, ni tampoco delegar todo sin mirar desde el día uno.
 - **Cerrar el loop con verificación real**: correr los tests, revisar el diff, probar la funcionalidad — no asumir que "compiló" o "no tiró error" significa que está bien resuelto.
