@@ -18,3 +18,12 @@ Wiki de referencia en español sobre **Claude Code**: cómo funciona, cómo conf
 - **Consistencia de idioma y términos**: ambos siguen la regla de [CONTRIBUTING.md](CONTRIBUTING.md) — texto explicativo en español, términos propios de Claude Code (`skills`, `hooks`, `subagents`, `MCP`, `slash commands`, etc.) sin traducir.
 - **Cambios estructurales** (nuevas carpetas, reorganizar `docs/`, tocar `README.md` o `CONTRIBUTING.md`) los coordina el agente principal con el usuario antes de aplicarlos.
 - Si un agente no está seguro de si algo es su rol o no, pregunta antes de actuar en vez de asumir.
+
+## Cómo se pasan trabajo: `.agents/inbox/`
+
+Para no depender de que el usuario copie y pegue todo manualmente entre sesiones, Antigravity CLI usa `.agents/inbox/` como buzón:
+
+- Cuando Antigravity hace una revisión, propone un borrador o encuentra algo para mejorar, lo escribe como un archivo Markdown en `.agents/inbox/` (nombre sugerido: `YYYY-MM-DD-tema.md`) en vez de aplicar el cambio directo sobre `docs/`, `buenas-practicas/`, `casos-de-uso/`, etc.
+- Claude Code revisa `.agents/inbox/` al empezar a trabajar en este repo: lee lo pendiente, decide qué incorporar (y dónde, siguiendo `CONTRIBUTING.md`) y qué descartar.
+- Una vez procesado un archivo, se borra de `.agents/inbox/` — el rastro queda en el historial de git si hace falta volver a verlo, no tiene sentido acumular archivos ya resueltos.
+- Esto no cambia los roles de la sección anterior: Antigravity sigue sin decidir solo sobre estructura del repo. Lo único que cambia es el canal — un archivo en vez del chat.
