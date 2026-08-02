@@ -7,7 +7,7 @@ Más allá del uso interactivo en la terminal, Claude Code se puede integrar de 
 - **Uso interactivo local**: una persona corre `claude` en su máquina, dentro de un repo, y trabaja de ida y vuelta con el agente. Es el modo por defecto y el más flexible.
 - **Scripts/automatizaciones puntuales**: invocar Claude Code desde un script para una tarea específica y bien definida (ej. generar un resumen, correr una migración de código repetitiva sobre varios archivos), sin sesión interactiva.
 - **CI/CD**: correr Claude Code como parte de un pipeline (ej. revisar un PR automáticamente, generar sugerencias sobre un diff) — acá el agente corre sin nadie mirando en tiempo real, por lo que la configuración de [permisos](07-permisos.md) tiene que ser explícita de antemano (no hay quién confirme acciones sobre la marcha).
-- **Agentes de fondo / background**: tareas largas que corren en paralelo a otro trabajo y notifican cuando terminan, en vez de bloquear a la persona que las lanzó (ver [Subagentes](09-subagentes.md)).
+- **Agentes de fondo / background**: tareas largas que corren en paralelo a otro trabajo y notifican cuando terminan, en vez de bloquear a la persona que las lanzó (ver [Subagents](09-subagents.md)).
 
 ## Claude Code como parte de un pipeline vs. uso interactivo
 

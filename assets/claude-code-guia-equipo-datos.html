@@ -178,7 +178,7 @@ footer.pagefoot{ max-width:760px; margin:0 auto; padding:50px 32px 90px; color:v
       </div>
       <div class="tree-group">
         <a href="#skills"><span class="pfx">├──</span>skills.md</a>
-        <a href="#subagentes"><span class="pfx">├──</span>subagentes.md</a>
+        <a href="#subagents"><span class="pfx">├──</span>subagents.md</a>
         <a href="#hooks"><span class="pfx">├──</span>hooks.md</a>
         <a href="#mcp"><span class="pfx">└──</span>mcp.md</a>
       </div>
@@ -198,7 +198,7 @@ footer.pagefoot{ max-width:760px; margin:0 auto; padding:50px 32px 90px; color:v
     <header class="hero">
       <div class="eyebrow">Guía interna · Equipo de datos</div>
       <h1>Claude Code, de la terminal a la BigQuery de todos los días.</h1>
-      <p class="lede">Qué es cada pieza — agentes, modelos, skills, subagentes, hooks, MCP — cómo se usa y cuándo conviene, con ejemplos pensados para un stack de Python, GCP y BigQuery.</p>
+      <p class="lede">Qué es cada pieza — agentes, modelos, skills, subagents, hooks, MCP — cómo se usa y cuándo conviene, con ejemplos pensados para un stack de Python, GCP y BigQuery.</p>
 
       <div class="term">
         <div class="term-bar">
@@ -227,7 +227,7 @@ footer.pagefoot{ max-width:760px; margin:0 auto; padding:50px 32px 90px; color:v
     4. vuelve a 2, hasta que el objetivo está resuelto
   </div>
 
-  <p>Este bucle es la diferencia entre "pedile código a un chat y pegalo vos" y "dale un objetivo y que investigue, ejecute y verifique". Todo lo que sigue en esta guía — skills, subagentes, hooks, MCP — son formas distintas de darle más contexto, más herramientas o más estructura a ese mismo bucle.</p>
+  <p>Este bucle es la diferencia entre "pedile código a un chat y pegalo vos" y "dale un objetivo y que investigue, ejecute y verifique". Todo lo que sigue en esta guía — skills, subagents, hooks, MCP — son formas distintas de darle más contexto, más herramientas o más estructura a ese mismo bucle.</p>
 </section>
 
 <section class="doc" id="claude-code">
@@ -358,14 +358,14 @@ claude</code></pre>
     <tr><td><code>/memory</code></td><td>Ver y editar qué hay cargado en CLAUDE.md y auto memory.</td></tr>
     <tr><td><code>/permissions</code></td><td>Ver y ajustar las reglas de qué puede hacer sin preguntar.</td></tr>
     <tr><td><code>/mcp</code></td><td>Ver el estado de los servidores MCP conectados.</td></tr>
-    <tr><td><code>/agents</code></td><td>Administrar subagentes disponibles.</td></tr>
+    <tr><td><code>/agents</code></td><td>Administrar subagents disponibles.</td></tr>
     <tr><td><code>/init</code></td><td>Generar un primer CLAUDE.md a partir de explorar el repo.</td></tr>
     <tr><td><code>/review</code> / <code>/code-review</code></td><td>Pedir una revisión de los cambios pendientes.</td></tr>
     <tr><td><code>/status</code></td><td>Ver modelo activo, cuenta y estado general de la sesión.</td></tr>
   </table>
 
   <h3><span class="num">6.1</span>Comandos propios del equipo</h3>
-  <p>Además de los comandos incorporados, se pueden crear comandos a medida — por ejemplo <code>/nueva-migracion</code> que siempre siga los mismos pasos para agregar una tabla nueva al warehouse. Hoy la forma recomendada de crearlos es como <strong>skill</strong> (ver la <a href="#skills">próxima sección</a>): un archivo markdown en <code>.claude/skills/nombre/SKILL.md</code> que se invoca igual, con <code>/nombre</code>, pero además soporta argumentos, archivos de apoyo y puede correr en un subagente aparte. La forma antigua — un archivo suelto en <code>.claude/commands/</code> — sigue funcionando, así que no hace falta migrar nada existente.</p>
+  <p>Además de los comandos incorporados, se pueden crear comandos a medida — por ejemplo <code>/nueva-migracion</code> que siempre siga los mismos pasos para agregar una tabla nueva al warehouse. Hoy la forma recomendada de crearlos es como <strong>skill</strong> (ver la <a href="#skills">próxima sección</a>): un archivo markdown en <code>.claude/skills/nombre/SKILL.md</code> que se invoca igual, con <code>/nombre</code>, pero además soporta argumentos, archivos de apoyo y puede correr en un subagent aparte. La forma antigua — un archivo suelto en <code>.claude/commands/</code> — sigue funcionando, así que no hace falta migrar nada existente.</p>
 </section>
 
 <section class="doc" id="permisos">
@@ -442,14 +442,14 @@ Dar de alta la tabla $ARGUMENTS:
   </div>
 </section>
 
-<section class="doc" id="subagentes">
-  <div class="section-eyebrow"><span class="p1">~/equipo-datos $</span> cat 09-subagentes.md</div>
-  <h2>Subagentes: delegar sin ensuciar la conversación principal</h2>
-  <p class="section-sub">Un subagente arranca con contexto vacío, hace su tarea, y devuelve solo el resultado final.</p>
+<section class="doc" id="subagents">
+  <div class="section-eyebrow"><span class="p1">~/equipo-datos $</span> cat 09-subagents.md</div>
+  <h2>Subagents: delegar sin ensuciar la conversación principal</h2>
+  <p class="section-sub">Un subagent arranca con contexto vacío, hace su tarea, y devuelve solo el resultado final.</p>
 
-  <p>Claude Code ya trae subagentes incorporados que usa solo, sin que se los pidas: <strong>Explore</strong> (solo lectura, optimizado para buscar y entender código, corre rápido y barato), <strong>Plan</strong> (investiga durante el modo plan), y <strong>general-purpose</strong> (para tareas que mezclan exploración y edición). No hace falta invocarlos a mano — explican buena parte de lo que Claude ya hace "solo" internamente.</p>
+  <p>Claude Code ya trae subagents incorporados que usa solo, sin que se los pidas: <strong>Explore</strong> (solo lectura, optimizado para buscar y entender código, corre rápido y barato), <strong>Plan</strong> (investiga durante el modo plan), y <strong>general-purpose</strong> (para tareas que mezclan exploración y edición). No hace falta invocarlos a mano — explican buena parte de lo que Claude ya hace "solo" internamente.</p>
 
-  <p>Además se pueden crear subagentes propios: archivos markdown en <code>.claude/agents/</code> con un rol fijo, herramientas restringidas y, opcionalmente, un modelo distinto al de la sesión principal.</p>
+  <p>Además se pueden crear subagents propios: archivos markdown en <code>.claude/agents/</code> con un rol fijo, herramientas restringidas y, opcionalmente, un modelo distinto al de la sesión principal.</p>
 
   <pre><code><span class="tok-c">## .claude/agents/validador-queries.md</span>
 ---
@@ -466,11 +466,11 @@ Sos un revisor de queries de BigQuery. Para cada query:
 3. Marcá cualquier `SELECT *` contra una tabla de más de 1TB.
 Sé breve: una lista de hallazgos, no un ensayo.</code></pre>
 
-  <p>¿Cuándo conviene un subagente en vez de resolverlo en la conversación principal? Cuando la tarea implica leer o generar mucho volumen que no necesitás ver en detalle — explorar 40 archivos para entender un pipeline legacy, por ejemplo — y solo te interesa el resumen final. El subagente absorbe ese ruido en su propia ventana de contexto; a la conversación principal solo vuelve la conclusión.</p>
+  <p>¿Cuándo conviene un subagent en vez de resolverlo en la conversación principal? Cuando la tarea implica leer o generar mucho volumen que no necesitás ver en detalle — explorar 40 archivos para entender un pipeline legacy, por ejemplo — y solo te interesa el resumen final. El subagent absorbe ese ruido en su propia ventana de contexto; a la conversación principal solo vuelve la conclusión.</p>
 
   <div class="callout callout-tip">
     <span class="lbl">No es magia gratis</span>
-    <p>Un subagente arranca sin ver tu conversación previa — el único canal que tiene es el mensaje de delegación que Claude le escribe. Para tareas chicas (correr un comando, un cambio de una línea), delegar agrega más overhead del que ahorra. Resérvenlo para investigación real.</p>
+    <p>Un subagent arranca sin ver tu conversación previa — el único canal que tiene es el mensaje de delegación que Claude le escribe. Para tareas chicas (correr un comando, un cambio de una línea), delegar agrega más overhead del que ahorra. Resérvenlo para investigación real.</p>
   </div>
 </section>
 
@@ -479,7 +479,7 @@ Sé breve: una lista de hallazgos, no un ensayo.</code></pre>
   <h2>Hooks: reglas que no dependen de que el modelo se acuerde</h2>
   <p class="section-sub">CLAUDE.md es una sugerencia que Claude suele seguir. Un hook es determinístico: corre siempre.</p>
 
-  <p>Un hook es un comando de shell (o un prompt, o un subagente) que se ejecuta automáticamente en un punto fijo del ciclo de vida de la sesión — antes de correr una herramienta, después de editar un archivo, al iniciar la sesión, cuando Claude termina de responder. Se configuran en <code>.claude/settings.json</code> con un evento, un matcher (qué herramienta dispara el hook) y el comando a correr.</p>
+  <p>Un hook es un comando de shell (o un prompt, o un subagent) que se ejecuta automáticamente en un punto fijo del ciclo de vida de la sesión — antes de correr una herramienta, después de editar un archivo, al iniciar la sesión, cuando Claude termina de responder. Se configuran en <code>.claude/settings.json</code> con un evento, un matcher (qué herramienta dispara el hook) y el comando a correr.</p>
 
   <pre><code><span class="tok-c">// .claude/settings.json — formatear SQL automáticamente</span>
 {
@@ -628,7 +628,7 @@ git diff origin/main <span class="tok-k">|</span> claude -p <span class="tok-s">
   <p><code>.mcp.json</code> en la raíz, versionado, es lo que hace que todo el equipo se conecte a los mismos servidores (BigQuery, GitHub) sin configurar nada a mano — se lee automáticamente al abrir el proyecto.</p>
 
   <h3><span class="num">13.1</span>Plugins: empaquetar todo junto</h3>
-  <p>Cuando el conjunto de skills, hooks, subagentes y servidores MCP del equipo crece, un <strong>plugin</strong> los agrupa en una unidad instalable y versionada — en vez de que cada persona arme su propia configuración suelta a mano. Se distribuye desde un repositorio interno (un "marketplace" propio, no público) y se instala con un comando, lo que facilita mantener a todo el equipo alineado cuando cambian las convenciones.</p>
+  <p>Cuando el conjunto de skills, hooks, subagents y servidores MCP del equipo crece, un <strong>plugin</strong> los agrupa en una unidad instalable y versionada — en vez de que cada persona arme su propia configuración suelta a mano. Se distribuye desde un repositorio interno (un "marketplace" propio, no público) y se instala con un comando, lo que facilita mantener a todo el equipo alineado cuando cambian las convenciones.</p>
 </section>
 <section class="doc" id="flujos">
   <div class="section-eyebrow"><span class="p1">~/equipo-datos $</span> cat 14-flujos-de-trabajo.md</div>
@@ -645,7 +645,7 @@ git diff origin/main <span class="tok-k">|</span> claude -p <span class="tok-s">
   <p>Por ejemplo, de un warehouse legacy a BigQuery. Dar un ejemplo migrado a mano primero ("así migramos la tabla X") ayuda mucho más que solo pedir "migrá todo" — Claude sigue el patrón establecido en vez de inventar uno propio archivo por archivo.</p>
 
   <h3><span class="num">14.4</span>Generar documentación</h3>
-  <p><em>"Documentá cada tabla de <code>models/marts/</code> en el <code>schema.yml</code> de dbt: qué representa cada columna, de dónde sale."</em> — funciona mejor delegado a un <a href="#subagentes">subagente de exploración</a> si son muchos modelos, para no llenar la conversación principal de contenido que no necesitás revisar línea por línea.</p>
+  <p><em>"Documentá cada tabla de <code>models/marts/</code> en el <code>schema.yml</code> de dbt: qué representa cada columna, de dónde sale."</em> — funciona mejor delegado a un <a href="#subagents">subagent de exploración</a> si son muchos modelos, para no llenar la conversación principal de contenido que no necesitás revisar línea por línea.</p>
 
   <h3><span class="num">14.5</span>Escribir tests</h3>
   <p>Para modelos de dbt: <em>"Agregá tests de <code>not_null</code>, <code>unique</code> y un test de relación contra la tabla de dimensión, para el modelo <code>fct_ventas</code>."</em> Para código Python: pedir primero los casos límite que se te ocurran a vos, después que Claude complete el resto — el resultado cubre mejor los casos que realmente importan.</p>
@@ -690,7 +690,7 @@ git diff origin/main <span class="tok-k">|</span> claude -p <span class="tok-s">
     <tr><td>Arrancar una tarea nueva sin relación</td><td><code>/clear</code></td></tr>
     <tr><td>Ver memoria cargada (CLAUDE.md + auto memory)</td><td><code>/memory</code></td></tr>
     <tr><td>Crear un procedimiento reutilizable</td><td>skill en <code>.claude/skills/nombre/SKILL.md</code></td></tr>
-    <tr><td>Delegar una investigación grande</td><td>subagente en <code>.claude/agents/nombre.md</code></td></tr>
+    <tr><td>Delegar una investigación grande</td><td>subagent en <code>.claude/agents/nombre.md</code></td></tr>
     <tr><td>Garantizar una regla sin excepción</td><td>hook en <code>.claude/settings.json</code></td></tr>
     <tr><td>Conectar BigQuery / GitHub / Drive</td><td><code>claude mcp add</code> o <code>.mcp.json</code></td></tr>
     <tr><td>Correr en CI/CD sin interfaz</td><td><code>claude -p "..." --output-format json</code></td></tr>

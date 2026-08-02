@@ -31,6 +31,6 @@ Claude Code, en cambio:
 - **Explora el proyecto** antes de actuar (busca archivos, lee código relacionado, entiende convenciones existentes).
 - **Ejecuta acciones reales** (correr tests, hacer builds, usar `git`, llamar APIs) y ajusta su plan según el resultado.
 - **Mantiene una tarea en curso** a lo largo de múltiples pasos, no solo la línea siguiente.
-- **Puede delegar** partes del trabajo en [subagentes](09-subagentes.md) o seguir procedimientos empaquetados en [skills](08-skills.md).
+- **Puede delegar** partes del trabajo en [subagents](09-subagents.md) o seguir procedimientos empaquetados en [skills](08-skills.md).
 
 En otras palabras: el autocompletado optimiza la escritura de código línea por línea; el agente resuelve una tarea de principio a fin, decidiendo por su cuenta qué pasos son necesarios.

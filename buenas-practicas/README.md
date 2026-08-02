@@ -14,15 +14,15 @@ Cada entrada se resume como: **regla → por qué → cuándo aplica**.
 **Por qué:** una skill se carga solo cuando aplica; un `CLAUDE.md` inflado con procedimientos ocupa contexto en *todas* las sesiones, aplique o no la tarea.
 **Cuándo aplica:** cuando la sección que se está por escribir empieza con "para hacer X, seguir estos pasos...".
 
-## Subagentes vs. resolver inline
+## Subagents vs. resolver inline
 
-**Regla:** delegar en un [subagente](../docs/09-subagentes.md) cuando la tarea es exploración abierta (no se sabe de antemano dónde está la respuesta) y resolver inline cuando el destino ya se conoce.
-**Por qué:** delegar una búsqueda directa a un subagente agrega overhead de coordinación sin necesidad; no delegar una exploración larga ensucia el contexto principal con resultados intermedios que no aportan una vez resuelta la tarea.
-**Cuándo aplica:** antes de lanzar un subagente, preguntarse "¿ya sé dónde/cómo resolver esto?" — si la respuesta es sí, resolver directo.
+**Regla:** delegar en un [subagent](../docs/09-subagents.md) cuando la tarea es exploración abierta (no se sabe de antemano dónde está la respuesta) y resolver inline cuando el destino ya se conoce.
+**Por qué:** delegar una búsqueda directa a un subagent agrega overhead de coordinación sin necesidad; no delegar una exploración larga ensucia el contexto principal con resultados intermedios que no aportan una vez resuelta la tarea.
+**Cuándo aplica:** antes de lanzar un subagent, preguntarse "¿ya sé dónde/cómo resolver esto?" — si la respuesta es sí, resolver directo.
 
-**Regla:** nunca delegar entendimiento — un subagente necesita todo el contexto relevante en el prompt inicial, no solo la instrucción final.
-**Por qué:** un subagente no tiene el historial de la conversación principal; un prompt tipo "arreglá el bug" sin contexto de qué se probó, qué se descartó y qué formato de respuesta se espera produce resultados genéricos o incorrectos.
-**Cuándo aplica:** siempre, al armar el prompt para cualquier subagente.
+**Regla:** nunca delegar entendimiento — un subagent necesita todo el contexto relevante en el prompt inicial, no solo la instrucción final.
+**Por qué:** un subagent no tiene el historial de la conversación principal; un prompt tipo "arreglá el bug" sin contexto de qué se probó, qué se descartó y qué formato de respuesta se espera produce resultados genéricos o incorrectos.
+**Cuándo aplica:** siempre, al armar el prompt para cualquier subagent.
 
 ## Permisos y autonomía
 
@@ -40,7 +40,7 @@ Cada entrada se resume como: **regla → por qué → cuándo aplica**.
 **Por qué:** un contexto que crece sin límite encarece cada turno siguiente y diluye la relevancia de lo que ya se acumuló — ver [15 — Costos](../docs/15-costos.md).
 **Cuándo aplica:** cuando el tema de la conversación cambió por completo respecto al motivo original de la sesión.
 
-**Regla:** delegar exploraciones largas (leer muchos archivos, probar varias búsquedas) a un subagente en vez de acumularlas en la conversación principal.
+**Regla:** delegar exploraciones largas (leer muchos archivos, probar varias búsquedas) a un subagent en vez de acumularlas en la conversación principal.
 **Por qué:** protege el espacio de contexto disponible para razonar sobre el resto de la tarea más adelante en la sesión.
 **Cuándo aplica:** cuando se anticipa que investigar algo va a tomar varios pasos intermedios cuyo detalle no hace falta conservar, solo la conclusión.
 

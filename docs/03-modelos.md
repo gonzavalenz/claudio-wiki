@@ -16,7 +16,7 @@ El trade-off no es solo "mejor vs. peor": un modelo más grande no compensa un p
 
 **Conviene un modelo más chico/rápido cuando:**
 - La tarea está bien acotada y es mecánica (renombrar algo en varios archivos, generar un stub siguiendo un patrón ya definido, resumir un resultado).
-- Se van a correr muchas iteraciones seguidas (ej. un subagente que se lanza en paralelo varias veces) y el costo/latencia acumulada importa.
+- Se van a correr muchas iteraciones seguidas (ej. un subagent que se lanza en paralelo varias veces) y el costo/latencia acumulada importa.
 - Ya se sabe exactamente qué hay que hacer — el "pensar la estrategia" ya lo hizo una persona o un modelo más grande antes.
 
 **Conviene un modelo más grande cuando:**
@@ -24,10 +24,10 @@ El trade-off no es solo "mejor vs. peor": un modelo más grande no compensa un p
 - Hay ambigüedad real en lo que se pide y hace falta buen criterio para resolverla sin supervisión constante.
 - El costo de un error es alto (cambios en producción, decisiones difíciles de revertir) y vale la pena pagar más por mayor probabilidad de acierto a la primera.
 
-Regla práctica: empezar con el modelo intermedio por defecto, subir a uno más grande cuando la tarea lo amerite por complejidad, y bajar a uno más chico para trabajo repetitivo/mecánico o para [subagentes](09-subagentes.md) que corren tareas acotadas en paralelo.
+Regla práctica: empezar con el modelo intermedio por defecto, subir a uno más grande cuando la tarea lo amerite por complejidad, y bajar a uno más chico para trabajo repetitivo/mecánico o para [subagents](09-subagents.md) que corren tareas acotadas en paralelo.
 
 ## Cómo se elige/cambia el modelo en Claude Code
 
-El modelo activo se puede fijar o cambiar según el flujo de trabajo (por sesión, por subagente, o como configuración por defecto del proyecto/usuario). Al lanzar un [subagente](09-subagentes.md) especializado, también se puede indicar qué modelo debería usar ese subagente en particular — no todos los pasos de una tarea necesitan el mismo modelo.
+El modelo activo se puede fijar o cambiar según el flujo de trabajo (por sesión, por subagent, o como configuración por defecto del proyecto/usuario). Al lanzar un [subagent](09-subagents.md) especializado, también se puede indicar qué modelo debería usar ese subagent en particular — no todos los pasos de una tarea necesitan el mismo modelo.
 
 Ver `/help` dentro de una sesión para la forma exacta de cambiar de modelo en la versión que estés usando, ya que la interfaz puede variar.

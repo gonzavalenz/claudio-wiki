@@ -28,7 +28,7 @@ assets/                Material de referencia no versionado como código (ej. la
 6. [Comandos: los atajos con `/`](docs/06-comandos-slash.md)
 7. [Permisos: cuánta autonomía le das](docs/07-permisos.md)
 8. [Skills: empaquetar conocimiento y procedimientos](docs/08-skills.md)
-9. [Subagentes: delegar sin ensuciar la conversación principal](docs/09-subagentes.md)
+9. [Subagents: delegar sin ensuciar la conversación principal](docs/09-subagents.md)
 10. [Hooks: reglas que no dependen de que el modelo se acuerde](docs/10-hooks.md)
 11. [MCP: conectar herramientas y datos externos](docs/11-mcp.md)
 12. [Arquitecturas de integración](docs/12-arquitecturas-de-integracion.md)
