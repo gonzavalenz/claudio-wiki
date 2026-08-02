@@ -15,6 +15,7 @@ Este repo crece de forma incremental. Antes de agregar o editar contenido, tené
 - **`casos-de-uso/`** — un caso de uso = un escenario real resuelto de punta a punta: contexto, problema, cómo se resolvió con Claude Code, qué se aprendió. No son teoría, son ejemplos vividos o simulados con detalle suficiente para reproducirlos.
 - **`ejemplos/`** — artefactos reutilizables y copiables: `CLAUDE.md` de ejemplo, configuraciones de `hooks`, `skills`, `slash commands`, snippets de `settings.json`, etc. Código/config primero, explicación mínima al lado.
 - **`assets/`** — material de referencia que no es Markdown versionable como contenido (HTML standalone, imágenes, diagramas exportados).
+- **`context/`** — contexto personal (stack tecnológico de laburo y personal), para orientar ejemplos y casos de uso hacia herramientas concretas en vez de genéricas.
 
 ## Formato
 

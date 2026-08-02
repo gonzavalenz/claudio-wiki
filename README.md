@@ -15,8 +15,13 @@ docs/                 Guía conceptual, capítulo por capítulo (fundamentos, mo
 buenas-practicas/      Reglas y recomendaciones de uso ("los mandamientos"): qué hacer y qué evitar, y por qué.
 casos-de-uso/          Escenarios reales resueltos con Claude Code, de punta a punta.
 ejemplos/              Configuraciones, prompts, comandos y snippets reutilizables (CLAUDE.md, hooks, skills, slash commands).
+context/               Contexto personal (stack de laburo y personal) para orientar ejemplos y recomendaciones.
 assets/                Material de referencia no versionado como código (ej. la guía visual en HTML).
 ```
+
+## Contexto
+
+[`context/stack.md`](context/stack.md) — stack tecnológico propio (laburo y personal), para que los ejemplos y casos de uso del resto del repo se puedan orientar a herramientas concretas.
 
 ## Índice de la guía (`docs/`)
 
