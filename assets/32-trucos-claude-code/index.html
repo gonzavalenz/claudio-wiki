@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>32 trucos de Claude Code — equipo de datos</title>
+<meta name="description" content="32 técnicas de uso de Claude Code para un equipo de ingeniería de datos (Python, GCP, BigQuery, dbt, Airflow), verificadas contra la documentación oficial.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="overlay-mobile" id="overlay-mobile"></div>
+
+<div class="shell">
+
+  <nav class="sidebar" id="sidebar" aria-label="Índice de trucos">
+    <div class="sidebar-head">
+      <span class="etiqueta">Claude Code</span>
+      <h1>32 trucos para equipos de datos</h1>
+      <p>Python · GCP · BigQuery · dbt · Airflow</p>
+    </div>
+
+    <div class="indice-grupo" data-nivel="basico">
+      <p class="indice-grupo-titulo">Nivel básico</p>
+      <a class="indice-link" href="#t01">01 · CLAUDE.md</a>
+      <a class="indice-link" href="#t02">02 · Barra de estado</a>
+      <a class="indice-link" href="#t03">03 · Esfuerzo y modelo</a>
+      <a class="indice-link" href="#t04">04 · Contexto corto</a>
+      <a class="indice-link" href="#t05">05 · Monitoreo de contexto</a>
+      <a class="indice-link" href="#t06">06 · Compactación</a>
+      <a class="indice-link" href="#t07">07 · Modo Plan</a>
+      <a class="indice-link" href="#t08">08 · Salida temprana</a>
+      <a class="indice-link" href="#t09">09 · Capturas de pantalla</a>
+      <a class="indice-link" href="#t10">10 · Entrada de voz</a>
+      <a class="indice-link" href="#t11">11 · Preguntas proactivas</a>
+    </div>
+
+    <div class="indice-grupo" data-nivel="intermedio">
+      <p class="indice-grupo-titulo">Nivel intermedio</p>
+      <a class="indice-link" href="#t12">12 · Subagentes</a>
+      <a class="indice-link" href="#t13">13 · Skills personalizadas</a>
+      <a class="indice-link" href="#t14">14 · Actualizar skills</a>
+      <a class="indice-link" href="#t15">15 · CLAUDE.md vivo</a>
+      <a class="indice-link" href="#t16">16 · Vínculos dinámicos</a>
+      <a class="indice-link" href="#t17">17 · Árbol de archivos</a>
+      <a class="indice-link" href="#t18">18 · Rebobinar</a>
+      <a class="indice-link" href="#t19">19 · Elección de interfaz</a>
+      <a class="indice-link" href="#t20">20 · Retomar sesiones</a>
+      <a class="indice-link" href="#t21">21 · Navegador</a>
+      <a class="indice-link" href="#t22">22 · Verificación web</a>
+    </div>
+
+    <div class="indice-grupo" data-nivel="experto">
+      <p class="indice-grupo-titulo">Nivel experto</p>
+      <a class="indice-link" href="#t23">23 · Memoria persistente</a>
+      <a class="indice-link" href="#t24">24 · Hooks productivos</a>
+      <a class="indice-link" href="#t25">25 · Dominio de Git</a>
+      <a class="indice-link" href="#t26">26 · CLI sobre MCPs</a>
+      <a class="indice-link" href="#t27">27 · Printing Press</a>
+      <a class="indice-link" href="#t28">28 · Tareas recurrentes</a>
+      <a class="indice-link" href="#t29">29 · Revisión profunda</a>
+      <a class="indice-link" href="#t30">30 · Hospedaje en VPS</a>
+      <a class="indice-link" href="#t31">31 · Bucle autónomo</a>
+      <a class="indice-link" href="#t32">32 · Agent SDK</a>
+    </div>
+  </nav>
+
+  <div class="contenido-principal">
+
+    <header class="encabezado">
+      <div class="encabezado-top">
+        <div class="encabezado-titulo">
+          <button class="btn-indice-mobile" id="btn-indice-mobile" type="button" aria-expanded="false" aria-controls="sidebar">☰ Índice</button>
+          <span><strong>32 trucos de Claude Code</strong> · para equipos de datos</span>
+        </div>
+        <span class="progreso" id="progreso-contador" aria-live="polite">0 / 32</span>
+      </div>
+      <div class="controles">
+        <div class="buscador">
+          <input type="search" id="buscador-input" placeholder="Buscar por título o contenido…" aria-label="Buscar trucos">
+        </div>
+        <div class="filtros" role="group" aria-label="Filtrar por nivel">
+          <button class="filtro-btn" type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+          <button class="filtro-btn" type="button" data-filtro="basico" aria-pressed="false">Básico</button>
+          <button class="filtro-btn" type="button" data-filtro="intermedio" aria-pressed="false">Intermedio</button>
+          <button class="filtro-btn" type="button" data-filtro="experto" aria-pressed="false">Experto</button>
+        </div>
+        <button class="btn-expandir" id="btn-expandir" type="button">Expandir todo</button>
+      </div>
+    </header>
+
+    <main>
+      <p class="sin-resultados" id="sin-resultados">Ningún truco coincide con la búsqueda.</p>
+
+      <!-- ================================================================
+           NIVEL BÁSICO
+           ================================================================ -->
+      <section class="nivel-seccion" data-nivel="basico" id="nivel-basico">
+        <h2 class="nivel-titulo">Nivel básico</h2>
+        <p class="nivel-desc">Lo mínimo para trabajar bien el primer día: cómo le hablás a Claude, cómo controlás el gasto de contexto y cómo frenás a tiempo.</p>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t01">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="1" id="check-1" aria-label="Marcar «CLAUDE.md» como que ya lo uso"></span>
+              <span class="ficha-num">01</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">CLAUDE.md</h3>
+                <p class="ficha-quees">Archivo markdown que Claude Code lee al arrancar cada sesión, con instrucciones persistentes sobre tu proyecto: convenciones, comandos, arquitectura.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando Claude comete el mismo error dos veces, cuando escribís la misma corrección en el chat que ya escribiste la sesión pasada, o cuando un compañero nuevo necesitaría el mismo contexto para ser productivo.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Se puede crear a mano en <code>./CLAUDE.md</code> o <code>./.claude/CLAUDE.md</code>, o generarlo a partir del código con <code>/init</code> (Claude explora el repo y arma un borrador). Mantenelo corto: la documentación oficial recomienda menos de 200 líneas, porque un archivo más largo consume más contexto en cada turno y baja la adherencia a las reglas.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un <code>CLAUDE.md</code> típico en un repo de dbt + Airflow:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code># Proyecto: pipeline de ventas
+
+- Correr `dbt build --select state:modified+` antes de commitear cambios en models/
+- Los modelos de staging usan prefijo `stg_`, nunca `raw_`
+- BigQuery: el dataset de desarrollo es `analytics_dev`.
+  No tocar `analytics_prod` sin confirmación explícita.
+- Los DAGs de Airflow viven en `dags/`, un archivo por pipeline
+- Test de un DAG en local: `airflow dags test ventas_diario 2026-08-01`</code></pre>
+                </div>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>CLAUDE.md se inyecta como un mensaje más después del system prompt, no como configuración forzada: Claude puede no seguirlo al pie de la letra si la instrucción es vaga o contradice otra. Para reglas que tienen que cumplirse sí o sí (por ejemplo, "nunca corras <code>DROP TABLE</code> sin preguntar") no alcanza con escribirlo acá — hace falta un <a href="#t24">hook</a> que bloquee la acción de verdad.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t15">CLAUDE.md vivo</a> · <a href="#t16">vínculos dinámicos</a> · <a href="#t23">memoria persistente</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t02">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="2" id="check-2" aria-label="Marcar «Barra de estado» como que ya lo uso"></span>
+              <span class="ficha-num">02</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Barra de estado</h3>
+                <p class="ficha-quees">Una fila configurable al pie de la terminal que corre un script tuyo y muestra lo que ese script imprima: contexto usado, costo, git, lo que quieras.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando querés ver de un vistazo cuánto contexto o costo llevás gastado, sin tener que acordarte de correr <code>/context</code> o <code>/usage</code> cada dos minutos.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Lo más simple es pedírselo a Claude en lenguaje natural con el comando <code>/statusline</code>, que genera el script y lo engancha solo en tu configuración:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/statusline mostrame el modelo, el directorio y el % de contexto usado con una barra de progreso</code></pre>
+                </div>
+                <p>También se puede configurar a mano agregando el campo <code>statusLine</code> en <code>~/.claude/settings.json</code>, apuntando a un script que lea JSON por stdin.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un statusline que muestra la rama de git y el % de contexto es útil cuando estás iterando sobre un DAG de Airflow largo y necesitás decidir si conviene <a href="#t06">compactar</a> antes de seguir, sin cortar el hilo para preguntarlo.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>El statusline corre localmente y no consume tokens de la API. Pero si el script hace <code>git status</code> o <code>git diff</code> en un repo grande, cada actualización puede colgar la interfaz un instante — la documentación oficial recomienda cachear esos comandos usando el <code>session_id</code> que viene en el JSON, con un TTL de unos segundos.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t05">monitoreo de contexto</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t03">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="3" id="check-3" aria-label="Marcar «Esfuerzo y modelo» como que ya lo uso"></span>
+              <span class="ficha-num">03</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Esfuerzo y modelo</h3>
+                <p class="ficha-quees"><code>/model</code> elige qué modelo responde; <code>/effort</code> elige cuánto "piensa" antes de responder. Dos perillas distintas para ajustar costo contra calidad.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Bajá el esfuerzo para tareas mecánicas y repetitivas (armar el boilerplate de un modelo de dbt nuevo). Subilo para debug difícil (una query de BigQuery que devuelve resultados que no cierran, un DAG que falla intermitente).</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/effort low
+/effort high
+/effort xhigh
+/model opus</code></pre>
+                </div>
+                <p>El cambio de esfuerzo aplica de inmediato, sin esperar a que termine la respuesta actual. Los niveles disponibles son <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code> y <code>max</code> (la disponibilidad depende del modelo).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p><code>/effort xhigh</code> antes de pedirle que revise por qué una tabla particionada por fecha y clusterizada por <code>customer_id</code> en BigQuery sigue escaneando de más — ahí vale la pena que piense más antes de proponer un fix.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Effort más alto significa más tokens de "pensamiento" antes de la respuesta, y eso se traduce en más costo y más latencia — no es gratis dejarlo siempre al máximo. Además, no todos los modelos exponen todos los niveles: por ejemplo, <code>ultracode</code> se reporta como <code>xhigh</code> en el statusline aunque internamente sea otra cosa.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t04">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="4" id="check-4" aria-label="Marcar «Contexto corto» como que ya lo uso"></span>
+              <span class="ficha-num">04</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Contexto corto</h3>
+                <p class="ficha-quees">No es un comando, es un hábito: mantener la conversación enfocada en la tarea actual en vez de dejar que se acumule historial de exploraciones viejas.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando arrancás una tarea nueva que no depende de lo que charlaste antes, o cuando notás que las respuestas empiezan a divagar o repetir cosas que ya se resolvieron.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Usá <code>/clear</code> entre tareas no relacionadas en vez de arrastrar todo en una sesión maratónica. Para exploración ruidosa —leer cientos de logs de una DAG, grepear un dataset grande de código— delegala a un <a href="#t12">subagente</a>, que trabaja en su propia ventana de contexto y te devuelve sólo el resumen.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>En vez de pedir en la conversación principal "leé los últimos 500 logs de la DAG de ventas y decime qué tasks fallaron", pedile a un subagente que lo haga y traiga sólo la lista de tasks fallidas con la causa — vos seguís trabajando con el contexto limpio.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Más contexto no es gratis: cada token que arrastrás se vuelve a mandar en cada turno (con cache, pero no gratis) y se cobra. Un contexto lleno de ruido tampoco es sólo un tema de costo — empeora la calidad de las respuestas porque Claude tiene que priorizar entre señal y ruido.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t05">monitoreo de contexto</a> · <a href="#t06">compactación</a> · <a href="#t12">subagentes</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t05">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="5" id="check-5" aria-label="Marcar «Monitoreo de contexto» como que ya lo uso"></span>
+              <span class="ficha-num">05</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Monitoreo de contexto</h3>
+                <p class="ficha-quees"><code>/context</code> muestra una grilla de colores con qué está ocupando tu ventana de contexto: system prompt, memoria, archivos leídos, conversación.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Antes de arrancar una tarea larga, o cuando sospechás que algo infló el contexto sin que te dieras cuenta (por ejemplo, después de que Claude leyó un archivo de configuración enorme).</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/context
+/context all</code></pre>
+                </div>
+                <p><code>/context all</code> expande el detalle por ítem, útil en modo fullscreen donde por default aparece colapsado.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Correr <code>/context</code> después de que un subagente devolvió el resultado de escanear todos los modelos de un proyecto dbt, para confirmar que el resumen no infló tu contexto principal más de lo esperado.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>El porcentaje que muestra <code>/context</code> puede diferir levemente del que ves en el <a href="#t02">statusline</a>, porque se calculan en momentos distintos del ciclo de la conversación — una pequeña discrepancia entre los dos no es un bug.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t02">barra de estado</a> · <a href="#t04">contexto corto</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t06">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="6" id="check-6" aria-label="Marcar «Compactación» como que ya lo uso"></span>
+              <span class="ficha-num">06</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Compactación</h3>
+                <p class="ficha-quees"><code>/compact</code> resume toda la conversación para liberar contexto. Para resumir sólo una parte, la herramienta correcta es <code>/rewind</code>, no <code>/compact</code>.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p><code>/compact</code>, cuando el contexto está lleno y necesitás seguir trabajando en la misma sesión. La variante selectiva, cuando sólo una parte puntual de la conversación (una exploración larga que ya no aporta) es la que sobra.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/compact enfocate en las decisiones sobre el esquema de BigQuery, descartá el resto</code></pre>
+                </div>
+                <p><code>/compact</code> acepta instrucciones opcionales para orientar el resumen, pero compacta toda la conversación de punta a punta — no un rango. Para lo selectivo, abrí el menú de rebobinado (<code>/rewind</code> o doble <code>Esc</code>) y elegí <strong>"Summarize from here"</strong> (resume desde ese punto hacia adelante) o <strong>"Summarize up to here"</strong> (resume todo lo anterior a ese punto, dejando el resto intacto).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Pasaste 40 minutos debuggeando por qué un DAG de Airflow no dispara un trigger, encontraste la causa, y ahora arrancás a escribir el fix. Con <code>/rewind</code> → "Summarize up to here" en el mensaje donde encontraste la causa, comprimís todo el ida y vuelta de debugging pero mantenés intacta la conversación de acá en adelante.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Las reglas de CLAUDE.md, skills y memoria sobreviven a <code>/compact</code> — no hace falta repetirlas. El CLAUDE.md de la raíz del proyecto además se vuelve a leer del disco después de compactar; los CLAUDE.md de subcarpetas y las reglas con <code>paths:</code> no se reinyectan solas, recién vuelven a cargar cuando Claude lee un archivo que matchea.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t18">rebobinar</a> · <a href="#t05">monitoreo de contexto</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t07">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="7" id="check-7" aria-label="Marcar «Modo Plan» como que ya lo uso"></span>
+              <span class="ficha-num">07</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Modo Plan</h3>
+                <p class="ficha-quees">Un modo en el que Claude puede leer e investigar, pero no editar archivos ni correr comandos con efectos secundarios, hasta que aprobás un plan.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Antes de cualquier cambio con blast radius grande: una migración de esquema en BigQuery, un refactor de un DAG que corre en producción, cualquier cosa donde preferís ver el plan antes de que Claude toque algo.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p><code>Shift+Tab</code> cicla al modo plan (también <code>/plan</code>). Claude investiga, te presenta un plan, y vos lo aprobás, lo corregís o lo rechazás antes de que se ejecute cualquier edición.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Pedirle "migrá el modelo <code>stg_orders</code> de materialización incremental a particionado por fecha de evento" en modo plan primero, para ver qué archivos de dbt va a tocar y cómo antes de que lo haga de verdad.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>El modo plan no es una caja de arena total: Claude puede seguir corriendo comandos de sólo lectura (grep, bash de consulta, lectura de archivos) sin pedir permiso mientras investiga. Lo que bloquea son las ediciones de archivos y los comandos que cambian estado.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t08">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="8" id="check-8" aria-label="Marcar «Salida temprana» como que ya lo uso"></span>
+              <span class="ficha-num">08</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Salida temprana</h3>
+                <p class="ficha-quees"><code>Esc</code> interrumpe a Claude a mitad de una respuesta o de una ejecución de herramienta.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>En cuanto ves que se fue por las ramas — por ejemplo, arrancó a tocar archivos de otro dataset que no le pediste, o está por correr un comando más amplio de lo que querías.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p><code>Esc</code> mientras está generando texto o ejecutando una herramienta.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Lo interrumpís apenas ves que, en vez de <code>dbt run --select stg_orders</code>, está por correr <code>dbt run</code> a secas sobre todo el proyecto en tu entorno de desarrollo.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p><code>Esc</code> corta la respuesta actual, no deshace lo que ya se ejecutó. Si Claude ya escribió un archivo o corrió un comando de bash antes de que lo frenaras, eso ya pasó — para deshacer ediciones de archivos hecho por Claude usá <a href="#t18"><code>/rewind</code></a>; los cambios hechos por comandos de bash (como un <code>rm</code> o un <code>UPDATE</code>) no se pueden deshacer desde ahí.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t18">rebobinar</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t09">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="9" id="check-9" aria-label="Marcar «Capturas de pantalla» como que ya lo uso"></span>
+              <span class="ficha-num">09</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Capturas de pantalla</h3>
+                <p class="ficha-quees">Adjuntar una imagen al prompt para que Claude la analice, en vez de describir con palabras algo que se ve mejor.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando el problema está en una interfaz visual: un dashboard de Looker Studio que renderiza mal, el grafo de una DAG en la UI de Airflow con tasks en rojo, un gráfico de calidad de datos que no cierra.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>En iTerm2, arrastrá el archivo de imagen directo a la ventana de la terminal, o pegalo con <code>Cmd+V</code> si lo copiaste al portapapeles.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Pegar un screenshot del grafo de una DAG en la UI de Airflow con varias tasks fallidas en rojo y pedirle "mirá cuáles fallaron y proponeme un fix para la política de retry de esa task".</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>El pegado con <code>Cmd+V</code> depende de si la imagen quedó en el portapapeles como archivo o como bitmap, y varía entre versiones de terminal. Si el pegado falla, arrastrar el archivo de imagen directo a la ventana funciona siempre como alternativa.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t10">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="10" id="check-10" aria-label="Marcar «Entrada de voz» como que ya lo uso"></span>
+              <span class="ficha-num">10</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Entrada de voz</h3>
+                <p class="ficha-quees">Dictado por voz activado con <code>/voice</code>: hablás y la transcripción se inserta en vivo en el prompt, en lugar de tipear.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando es más rápido explicar en voz alta un problema largo que escribirlo, o cuando estás lejos del teclado pero cerca del micrófono.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/voice        # activa modo hold-to-record (default): mantenés Space apretado para grabar
+/voice tap    # modo tap-to-record: un toque arranca, otro toque manda
+/voice off    # desactiva</code></pre>
+                </div>
+                <p>La primera vez que lo activás, macOS te va a pedir permiso de micrófono para tu terminal (System Settings → Privacy &amp; Security → Microphone).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Mantener <code>Space</code> apretado para explicar en voz alta "che, la task de extracción de Airflow está fallando después del deploy de ayer, revisá qué cambió en el operator de BigQuery" mientras seguís mirando los logs en otra ventana.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Necesita cuenta de claude.ai — no funciona autenticado sólo con API key, Bedrock, Vertex AI o Microsoft Foundry. Tampoco funciona en entornos remotos (SSH, Claude Code en la web) porque el audio se captura en la máquina local. El audio se manda a los servidores de Anthropic para transcribir, no se procesa local, y no consume tokens ni cuenta contra los límites de <code>/usage</code>.</p>
+              </div>
+              <div class="nota-correccion">
+                <strong>Ojo con la fuente original:</strong> la lista de la que salió este truco decía que "no es un comando <code>/voice</code>". Es al revés: <code>/voice</code> es el comando que lo activa; lo que varía es el modo (hold o tap), no si existe el comando.
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t11">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="11" id="check-11" aria-label="Marcar «Preguntas proactivas» como que ya lo uso"></span>
+              <span class="ficha-num">11</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Preguntas proactivas</h3>
+                <p class="ficha-quees">Pedirle explícitamente a Claude que pregunte antes de tomar decisiones ambiguas o ejecutar algo riesgoso, en vez de asumir y seguir.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-basico">Básico</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>En tareas donde una decisión mal tomada es cara de revertir: un cambio de esquema en una tabla productiva, un borrado de partición en BigQuery, un cambio en la lógica de un DAG que corre a las 3am sin que nadie lo mire.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Instrucción puntual en el prompt, o una línea en CLAUDE.md:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code># En CLAUDE.md
+- Si vas a borrar o modificar datos en BigQuery, mostrame la query
+  y esperá confirmación antes de ejecutarla.
+- Si una tarea se puede interpretar de más de una forma, preguntame
+  en vez de asumir cuál.</code></pre>
+                </div>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>"Antes de correr el <code>DELETE</code> sobre la tabla de staging, mostrame la condición del <code>WHERE</code> y esperá que te confirme."</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Esto es una instrucción de comportamiento, no una traba técnica: Claude puede igual no preguntar si el CLAUDE.md es ambiguo o si compite con otra instrucción. Para bloquear de verdad una acción (no simplemente pedirle que avise) hace falta un <a href="#t24">hook <code>PreToolUse</code></a> con un matcher sobre <code>Bash</code>, que sí corre siempre sin depender de que el modelo se acuerde.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t24">hooks productivos</a></p>
+            </div>
+          </details>
+        </article>
+
+      </section>
+
+      <!-- ================================================================
+           NIVEL INTERMEDIO
+           ================================================================ -->
+      <section class="nivel-seccion" data-nivel="intermedio" id="nivel-intermedio">
+        <h2 class="nivel-titulo">Nivel intermedio</h2>
+        <p class="nivel-desc">Una vez que el uso diario ya es fluido: delegar trabajo, empaquetar conocimiento repetible y mantener el setup al día.</p>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t12">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="12" id="check-12" aria-label="Marcar «Subagentes» como que ya lo uso"></span>
+              <span class="ficha-num">12</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Subagentes</h3>
+                <p class="ficha-quees">Asistentes especializados que corren en su propia ventana de contexto, con su propio system prompt y permisos, y devuelven sólo el resultado.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando una tarea secundaria inundaría tu conversación principal con resultados de búsqueda, logs o contenido de archivos que no vas a volver a necesitar. También cuando repetís siempre el mismo tipo de encargo con las mismas instrucciones.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Un subagente es un archivo markdown con frontmatter YAML en <code>.claude/agents/</code> (proyecto) o <code>~/.claude/agents/</code> (usuario, todos tus proyectos):</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>---
+name: log-triager
+description: Revisa logs de tasks fallidas de Airflow y devuelve un resumen accionable. Usar proactivamente cuando una DAG falla.
+tools: Read, Bash, Grep
+model: haiku
+---
+
+Sos un triager de logs de Airflow. Cuando te pasen el nombre de una DAG
+y una fecha de ejecución, buscá los logs de las tasks fallidas,
+identificá la causa raíz y devolvé un resumen de máximo 10 líneas
+con: task, causa probable, y si es reintentable.</code></pre>
+                </div>
+                <p>Se invoca automáticamente cuando Claude cree que aplica, con lenguaje natural ("usá el subagente log-triager"), o con <code>@</code> para forzar cuál corre (<code>@agent-log-triager</code>).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un subagente <code>bq-cost-checker</code> con acceso sólo a <code>Bash</code> restringido a <code>bq query --dry_run</code>, que estimás el costo de una query antes de correrla sobre una tabla de ventas de varios TB.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Cada subagente arranca con contexto fresco: no ve tu conversación previa ni los archivos que ya leíste (la excepción es un subagente en modo <em>fork</em>, que sí hereda la conversación). Además, <a href="#t18">el rewind no restaura ediciones hechas por un subagente</a>, salvo que corra en foreground como fork — si un subagente rompe algo, tenés que revertirlo con git, no con <code>/rewind</code>.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t04">contexto corto</a> · <a href="#t25">worktrees</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t13">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="13" id="check-13" aria-label="Marcar «Skills personalizadas» como que ya lo uso"></span>
+              <span class="ficha-num">13</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Skills personalizadas</h3>
+                <p class="ficha-quees">Recetas para tareas repetitivas: instrucciones que Claude carga sólo cuando hacen falta, en vez de vivir siempre en el contexto como CLAUDE.md.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando venís pegando las mismas instrucciones en el chat una y otra vez, o cuando una sección de tu CLAUDE.md creció hasta convertirse en un procedimiento de varios pasos en vez de un dato simple.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Un archivo <code>SKILL.md</code> dentro de una carpeta con el nombre de la skill:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code># .claude/skills/nueva-tabla-bq/SKILL.md
+---
+name: nueva-tabla-bq
+description: Crea una tabla nueva en BigQuery con partición, clustering y el modelo de dbt correspondiente. Usar cuando se pide agregar una tabla nueva al warehouse.
+---
+
+1. Preguntá el nombre de la tabla, la columna de partición y las columnas de clustering.
+2. Generá el modelo de dbt en models/marts/ con el bloque `config` correspondiente.
+3. Agregá el test de `not_null` y `unique` sobre la primary key.
+4. Corré `dbt run --select <modelo> --target dev` para validar antes de terminar.</code></pre>
+                </div>
+                <p>El nombre de la carpeta se convierte en el comando: esta skill se invoca con <code>/nueva-tabla-bq</code>. Para generarlas con ayuda, existe el plugin oficial <code>skill-creator</code>:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/plugin marketplace add anthropics/claude-plugins-official
+/plugin install skill-creator@claude-plugins-official</code></pre>
+                </div>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Una skill <code>revisar-dag</code> que, antes de mergear un DAG nuevo, chequea que tenga <code>retries</code>, <code>on_failure_callback</code> configurado y que no use <code>schedule_interval</code> deprecado en favor de <code>schedule</code>.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>A diferencia de CLAUDE.md, el cuerpo de una skill sólo se carga en contexto cuando se usa — podés tener documentación de referencia larga ahí adentro casi gratis. Los comandos personalizados viejos en <code>.claude/commands/</code> siguen funcionando igual, pero las skills son la forma recomendada porque suman carpeta de soporte, control de quién la invoca y ejecución en subagente.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t14">actualizar skills</a> · <a href="#t01">CLAUDE.md</a> · <a href="#t12">subagentes</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t14">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="14" id="check-14" aria-label="Marcar «Actualizar skills» como que ya lo uso"></span>
+              <span class="ficha-num">14</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Actualización de skills</h3>
+                <p class="ficha-quees">Refinar una skill no es sólo editar el texto: es medir si dispara cuando debe y si el resultado mejora cuando dispara, antes y después del cambio.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando una skill dispara en prompts donde no debería, no dispara cuando sí debería, o cambiaste las instrucciones y no estás seguro de si mejoró algo o sólo lo movió de lugar.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>La forma manual es comparar en dos sesiones frescas: correr los mismos prompts con la skill habilitada y con la skill deshabilitada, y ver la diferencia. El plugin oficial <code>skill-creator</code> automatiza ese loop:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>evaluate my nueva-tabla-bq skill with skill-creator</code></pre>
+                </div>
+                <p>A partir de ahí te guía para escribir casos de prueba (guardados en <code>evals/evals.json</code> dentro de la carpeta de la skill), corre cada caso en un subagente con contexto limpio, compara con-skill contra sin-skill, y hace una comparación ciega A/B entre dos versiones de la skill antes de que decidas cuál dejar.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Después de agregarle un paso nuevo a la skill <code>revisar-dag</code>, correr la evaluación A/B contra la versión anterior con 5 DAGs reales del repo como casos de prueba, para confirmar que el paso nuevo no rompió la detección de los casos que ya andaban bien.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Ver que una skill "se activó" no dice si hizo lo que querías — sólo dice que Claude la encontró. Hay que medir las dos cosas por separado: si dispara en los prompts correctos, y si el resultado cuando dispara es el esperado. El plugin también genera prompts que deberían y no deberían disparar la skill, para ajustar la <code>description</code> si se activa de más o de menos.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t13">skills personalizadas</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t15">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="15" id="check-15" aria-label="Marcar «CLAUDE.md vivo» como que ya lo uso"></span>
+              <span class="ficha-num">15</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">CLAUDE.md vivo</h3>
+                <p class="ficha-quees">Tratar el CLAUDE.md como un documento que se actualiza al final de cada sesión con lo que se aprendió, no como algo que se escribe una vez y se olvida.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Al cierre de una sesión donde corregiste a Claude más de una vez sobre lo mismo, o donde descubriste una convención del proyecto que no estaba documentada.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>Antes de terminar: revisá si algo de lo que corregí hoy debería
+quedar en CLAUDE.md (no en la memoria automática), y proponeme
+la línea exacta para agregar.</code></pre>
+                </div>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Después de corregir dos veces en la misma sesión que los tests de dbt van con <code>--target dev</code> y no con el target por default, cerrar pidiendo que agregue esa regla a CLAUDE.md para no tener que repetirla la próxima vez.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Esto se solapa con la <a href="#t23">memoria automática</a>, que hace justamente esto sin que se lo pidas. La diferencia es de audiencia y control: CLAUDE.md lo escribís vos, va a git y lo ve todo el equipo; la memoria automática la escribe Claude, es local a tu máquina y no la revisa nadie más. Usá CLAUDE.md para lo que el equipo necesita saber, y dejá que la memoria automática junte tus propias costumbres.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t01">CLAUDE.md</a> · <a href="#t23">memoria persistente</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t16">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="16" id="check-16" aria-label="Marcar «Vínculos dinámicos» como que ya lo uso"></span>
+              <span class="ficha-num">16</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Vínculos dinámicos</h3>
+                <p class="ficha-quees">CLAUDE.md puede importar otros archivos con <code>@ruta/archivo.md</code> en vez de que todo viva apilado en un solo archivo gigante.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando tu CLAUDE.md empieza a mezclar temas distintos (convenciones de dbt, reglas de Airflow, estilo de Python) y conviene separarlos en archivos con nombre propio, o cuando ya tenés un <code>AGENTS.md</code> u otro archivo de instrucciones que no querés duplicar.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code># CLAUDE.md
+Ver @docs/convenciones-dbt.md para el estilo de modelos.
+Ver @docs/convenciones-airflow.md para el estilo de DAGs.
+
+@AGENTS.md</code></pre>
+                </div>
+                <p>Rutas relativas o absolutas, con hasta 4 niveles de imports recursivos. El parser ignora lo que está entre backticks o en bloques de código, así que <code>`@README`</code> entre comillas no se importa, escrito suelto sí.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Separar <code>docs/convenciones-bigquery.md</code> (naming de datasets, política de particionado) de <code>docs/convenciones-airflow.md</code> (estructura de DAGs, manejo de retries), e importar ambos desde el CLAUDE.md principal.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Los imports no ahorran contexto: se expanden y se cargan enteros al arrancar la sesión, igual que si estuvieran pegados en el CLAUDE.md. Sirven para organizar, no para aligerar — si el objetivo es que algo cargue sólo cuando hace falta, eso es una <a href="#t13">skill</a>, no un import. Además, un import que apunta fuera de tu carpeta de trabajo (por ejemplo a tu <code>$HOME</code>) dispara un diálogo de aprobación la primera vez, como protección contra archivos que otra persona haya comiteado.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t01">CLAUDE.md</a> · <a href="#t13">skills personalizadas</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t17">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="17" id="check-17" aria-label="Marcar «Árbol de archivos» como que ya lo uso"></span>
+              <span class="ficha-num">17</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Árbol de archivos</h3>
+                <p class="ficha-quees">Pegar la salida de <code>tree</code> en CLAUDE.md para que Claude "vea" la estructura del proyecto de entrada.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Con matices: sirve como ayuda puntual de onboarding (una sesión nueva, un repo grande donde perderse es fácil), no como entrada permanente de CLAUDE.md.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>tree -L 2 -I 'venv|__pycache__|.dbt|target|logs' models/ dags/</code></pre>
+                </div>
+                <p>Si igual lo querés fijo en CLAUDE.md, limitalo a 1-2 niveles de profundidad y a las carpetas que realmente cambian de significado según dónde estás (no listes cada archivo <code>.sql</code>).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un árbol de dos niveles mostrando <code>models/staging/</code>, <code>models/intermediate/</code> y <code>models/marts/</code> le da a Claude el criterio de capas de dbt sin listar los 200 archivos <code>.sql</code> de adentro.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Un árbol estático en CLAUDE.md consume contexto en cada turno de cada sesión, y se desactualiza apenas alguien agrega o borra un archivo — nadie se acuerda de regenerarlo. Además, Claude ya puede explorar la estructura real con sus propias herramientas (<code>Glob</code>, <code>ls</code>) cuando la necesita, así que en la mayoría de los proyectos un árbol fijo es puro costo sin beneficio. Vale la pena sólo cuando la estructura por sí sola comunica una convención que no es obvia mirando un archivo suelto.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t01">CLAUDE.md</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t18">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="18" id="check-18" aria-label="Marcar «Rebobinar» como que ya lo uso"></span>
+              <span class="ficha-num">18</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Rebobinar</h3>
+                <p class="ficha-quees"><code>/rewind</code> (o doble <code>Esc</code> con el prompt vacío) abre un menú para volver código y/o conversación a un punto anterior de la sesión.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando un cambio salió mal y querés volver al estado anterior sin usar git a mano, cuando querés probar un enfoque alternativo sin perder el punto de partida, o cuando la conversación se llenó de un debugging largo que ya no aporta.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p><code>/rewind</code>, o doble <code>Esc</code> con el input vacío (si el input tiene texto, doble <code>Esc</code> lo borra en vez de abrir el menú — el texto borrado queda en el historial, <code>↑</code> lo recupera). El menú lista cada prompt de la sesión y ofrece:</p>
+                <ul>
+                  <li><strong>Restore code and conversation</strong>: vuelve ambos a ese punto</li>
+                  <li><strong>Restore conversation</strong>: rebobina la charla, deja el código como está ahora</li>
+                  <li><strong>Restore code</strong>: revierte los archivos, deja la conversación como está</li>
+                  <li><strong>Summarize from here / up to here</strong>: comprime la conversación desde o hasta ese punto (ver <a href="#t06">compactación</a>)</li>
+                </ul>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Probaste que Claude reescriba un modelo de dbt de incremental a table completa, no te convenció el resultado, y con "Restore code" volvés los archivos al estado de antes del intento sin tocar la conversación donde ya explicaste el contexto.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Lo que <strong>no</strong> restaura: cambios hechos por comandos de bash (<code>rm</code>, <code>mv</code>, un <code>UPDATE</code> en la base) — sólo rastrea ediciones hechas con las herramientas de archivo de Claude. Tampoco restaura ediciones de subagentes (salvo un fork en foreground), ni archivos symlinkeados o hardlinkeados, ni cambios externos hechos fuera de la sesión. No es un reemplazo de git: los checkpoints se borran a los 30 días por default.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t06">compactación</a> · <a href="#t08">salida temprana</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t19">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="19" id="check-19" aria-label="Marcar «Elección de interfaz» como que ya lo uso"></span>
+              <span class="ficha-num">19</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Elección de interfaz</h3>
+                <p class="ficha-quees">La CLI en la terminal es la superficie más potente y rápida para trabajar con Claude Code, por encima de otras integraciones.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Para el trabajo del día a día: correr comandos de <code>bq</code>, <code>dbt</code> y <code>airflow</code> en la misma terminal donde ya trabajás es más directo que saltar a una extensión de IDE o una interfaz web para cada cosa.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>iTerm2 (o Terminal.app) más el CLI de Claude Code instalado. Las extensiones de VS Code y JetBrains están buenas para ver diffs con contexto de archivo, pero para el flujo agéntico completo (permisos, subagentes, hooks, worktrees) la CLI expone todo primero.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Tener una pestaña de iTerm2 con Claude Code corriendo en el repo de dbt, y otra con <code>airflow standalone</code> levantado para probar los DAGs en caliente mientras Claude edita — sin cambiar de aplicación.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>No es una regla absoluta: la extensión de VS Code muestra diffs inline más cómodos para revisar cambios grandes, y la app de escritorio da sesiones paralelas con worktrees automáticos sin manejarlos a mano. La CLI gana en velocidad y en control fino (flags, modo headless, scripting), no en todos los escenarios.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t20">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="20" id="check-20" aria-label="Marcar «Retomar sesiones» como que ya lo uso"></span>
+              <span class="ficha-num">20</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Retomar sesiones viejas</h3>
+                <p class="ficha-quees">No existe un comando <code>/recap</code>: para retomar una sesión anterior con contexto, el mecanismo real es <code>/resume</code>.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando volvés a una tarea que dejaste a medias hace unos días y no querés reexplicar todo el contexto de cero.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/resume                    # picker interactivo de sesiones anteriores
+claude --continue          # continúa la conversación más reciente
+claude --resume &lt;id&gt;       # continúa una sesión puntual por id</code></pre>
+                </div>
+                <p>En sesiones muy largas (más de 100k tokens aprox.), Claude Code puede ofrecerte un "Resume from summary" que corre un <code>/compact</code> automático antes de retomar.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Volver un lunes a la sesión del viernes donde estabas migrando un DAG a <code>TaskFlow API</code>, retomarla con <code>/resume</code>, y pedirle "resumime en tres líneas dónde quedamos" para reubicarte antes de seguir.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Si corriste <code>/clear</code> dentro del mismo proceso de Claude Code, el menú de <code>/rewind</code> muestra una entrada extra al tope para volver a la conversación de antes del <code>/clear</code> — una forma rápida de deshacer un <code>/clear</code> accidental sin pasar por <code>/resume</code>.</p>
+              </div>
+              <div class="nota-correccion">
+                <strong>Corrección respecto a la lista original:</strong> el comando <code>/recap</code> no existe en la documentación oficial. Esta ficha documenta el mecanismo real (<code>/resume</code>) en su lugar.
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t21">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="21" id="check-21" aria-label="Marcar «Navegador» como que ya lo uso"></span>
+              <span class="ficha-num">21</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Navegador</h3>
+                <p class="ficha-quees">Dejar que el agente controle un navegador: hoy el camino oficial es la extensión Claude in Chrome para tareas web, y computer use para apps de escritorio nativas.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Para navegar sitios que necesitan tu sesión ya logueada (una consola de GCP con SSO, un dashboard de Looker Studio interno), llenar formularios, o inspeccionar visualmente una página que no tiene API.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Extensión oficial de Chrome, activada con el flag <code>--chrome</code>. Para controlar apps nativas de escritorio (no web) existe <em>computer use</em> como servidor MCP incorporado.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Usar Claude in Chrome para entrar a la consola de BigQuery, revisar visualmente el plan de ejecución de una query en la UI (algo que no siempre sale completo por la API), y que Claude te resuma dónde está el cuello de botella.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Playwright vía MCP sigue siendo una alternativa comunitaria válida, sobre todo si ya tenés flujos de testing armados con Playwright — pero no es el camino que la documentación oficial recomienda de entrada hoy. Para tareas puramente de datos (leer una API, bajar un archivo), casi siempre conviene un cliente HTTP o el SDK del proveedor antes que simular clicks en un navegador.</p>
+              </div>
+              <div class="nota-correccion">
+                <strong>Corrección respecto a la lista original:</strong> la fuente mencionaba Playwright como el camino de facto. Hoy la documentación oficial encabeza con la extensión de Chrome y computer use; Playwright queda como alternativa, no como recomendación principal.
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t22">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="22" id="check-22" aria-label="Marcar «Verificación web» como que ya lo uso"></span>
+              <span class="ficha-num">22</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Verificación web</h3>
+                <p class="ficha-quees">Pedirle a Claude que busque en la web antes de asumir un dato que puede haber cambiado desde su fecha de corte de entrenamiento.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-intermedio">Intermedio</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Versiones de librerías, sintaxis de un producto que cambia seguido (como los propios comandos de Claude Code), límites de cuota de una API de GCP, o cualquier dato con fecha de vencimiento.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>Buscá en la documentación oficial de dbt cuál es la sintaxis actual
+para materializaciones incrementales con `incremental_strategy: merge`
+en BigQuery, no asumas de memoria.</code></pre>
+                </div>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Antes de que Claude te proponga un operator de Airflow para un servicio de GCP, pedirle que confirme en la documentación oficial si ese operator sigue existiendo o si el proveedor lo deprecó a favor de otro paquete.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Esta misma página se armó siguiendo esta práctica: varios de los "trucos" de la lista original tenían nombres de comando desactualizados o inexistentes, y sólo se detectaron contrastando contra la documentación oficial en vivo. Pedir la verificación no es paranoia — es la única forma de no arrastrar syntax vieja.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+      </section>
+
+      <!-- ================================================================
+           NIVEL EXPERTO
+           ================================================================ -->
+      <section class="nivel-seccion" data-nivel="experto" id="nivel-experto">
+        <h2 class="nivel-titulo">Nivel experto</h2>
+        <p class="nivel-desc">Para cuando Claude Code ya es parte de la infraestructura del equipo, no sólo una herramienta personal.</p>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t23">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="23" id="check-23" aria-label="Marcar «Memoria persistente» como que ya lo uso"></span>
+              <span class="ficha-num">23</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Memoria persistente</h3>
+                <p class="ficha-quees">Claude Code ya trae memoria automática nativa (carpeta <code>memory/</code> por proyecto); armar algo propio sólo se justifica en casos puntuales.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>La nativa alcanza para la mayoría de los equipos: aprende sola de tus correcciones sesión a sesión. Justifica armar algo propio cuando necesitás memoria compartida entre todo el equipo (no local a tu máquina), estructura de tipos custom, o integración con un sistema externo (un Notion, una base de conocimiento).</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>La memoria automática está prendida por default. Vive en <code>~/.claude/projects/&lt;proyecto&gt;/memory/</code>, con un <code>MEMORY.md</code> como índice (se cargan sus primeras 200 líneas o 25KB, lo que sea menor) y archivos de tema aparte que se leen bajo demanda:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>~/.claude/projects/&lt;proyecto&gt;/memory/
+├── MEMORY.md              # índice, se carga siempre
+├── convenciones-dbt.md    # se lee sólo cuando hace falta
+└── debugging-airflow.md</code></pre>
+                </div>
+                <p>Se administra con <code>/memory</code> (ver, editar, desactivar) y es local a tu máquina — no se comparte entre compañeros ni entre entornos cloud.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Después de corregir varias veces que "los tests de dbt en este repo corren con <code>dbt test --target ci</code>, no con el target default", Claude guarda esa nota sola en memoria — la próxima sesión ya lo sabe sin que se lo repitas.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>La memoria automática es machine-local: si el equipo comparte laptops o corre Claude Code en un entorno cloud efímero, esas notas no viajan con vos. Para eso sirve compartir vía CLAUDE.md (versionado en git) en vez de depender de la memoria automática. Además, la memoria del subagente principal no se carga dentro de los subagentes (salvo fork) — cada subagente puede tener su propia memoria separada si se configura el campo <code>memory</code> en su frontmatter.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t01">CLAUDE.md</a> · <a href="#t15">CLAUDE.md vivo</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t24">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="24" id="check-24" aria-label="Marcar «Hooks productivos» como que ya lo uso"></span>
+              <span class="ficha-num">24</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Hooks productivos</h3>
+                <p class="ficha-quees">Scripts que corren automáticamente en eventos del ciclo de vida de la sesión — no dependen de que el modelo se acuerde de hacer algo.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando una regla tiene que cumplirse siempre, sin excepción, más allá de lo que diga CLAUDE.md — bloquear un comando peligroso, correr un linter después de cada edición, avisar por Slack cuando termina una tarea larga.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Configuración en <code>settings.json</code>, con un evento, un matcher opcional y el comando a correr:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/bloquear-prod.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+                </div>
+                <p>Eventos clave: <code>SessionStart</code> / <code>SessionEnd</code> (arranque y cierre de sesión), <code>UserPromptSubmit</code> (antes de procesar tu prompt), <code>PreToolUse</code> / <code>PostToolUse</code> (antes y después de cada herramienta, puede bloquear), <code>Stop</code> (cuando termina un turno), <code>WorktreeCreate</code>/<code>WorktreeRemove</code>, entre otros.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un hook <code>PreToolUse</code> sobre <code>Bash</code> que rechaza cualquier comando <code>bq query</code> sin <code>--dry_run</code> que apunte al dataset <code>analytics_prod</code>, forzando el chequeo de costo antes de correr sobre producción.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Un hook es la única forma de bloquear algo de verdad, pase lo que pase con el criterio del modelo — CLAUDE.md y las instrucciones en el prompt son contexto que Claude interpreta, no reglas forzadas. Si la regla es "nunca hagas X", esa regla va en un hook, no en un párrafo de CLAUDE.md por más enfático que suene.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t01">CLAUDE.md</a> · <a href="#t11">preguntas proactivas</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t25">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="25" id="check-25" aria-label="Marcar «Dominio de Git/GitHub» como que ya lo uso"></span>
+              <span class="ficha-num">25</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Dominio de Git/GitHub</h3>
+                <p class="ficha-quees">Prerrequisito real para todo lo demás en este nivel: worktrees, checkpoints y revertir cambios del agente dependen de que sepas moverte con git.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Antes de correr subagentes o sesiones en paralelo sobre el mismo repo, y antes de confiar en <code>/rewind</code> como única red de seguridad (no lo es).</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Un <em>worktree</em> es un checkout separado del mismo repo, con su propia rama, para que dos sesiones no se pisen editando los mismos archivos:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>claude --worktree migracion-esquema-ventas</code></pre>
+                </div>
+                <p>Esto crea (por default) <code>.claude/worktrees/migracion-esquema-ventas/</code> en una rama nueva <code>worktree-migracion-esquema-ventas</code>. Podés tener una sesión migrando el esquema de ventas en un worktree mientras otra arregla un bug en la DAG de marketing en otro, sin que se toquen los mismos archivos.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Aislar un subagente que hace refactors mecánicos en paralelo agregando <code>isolation: worktree</code> en su frontmatter, para que sus ediciones no choquen con lo que estás haciendo vos en la sesión principal al mismo tiempo.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p><code>/rewind</code> no es un sustituto de git: los checkpoints se borran a los 30 días, no rastrean cambios hechos por bash ni por la mayoría de los subagentes, y no sirven una vez que cerrás la sesión sin haber comiteado. La única red de seguridad real para cambios que importan es un commit (o al menos un <code>git stash</code>) antes de dejar que Claude toque algo grande.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t12">subagentes</a> · <a href="#t18">rebobinar</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t26">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="26" id="check-26" aria-label="Marcar «CLI sobre MCPs» como que ya lo uso"></span>
+              <span class="ficha-num">26</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">CLI sobre MCPs</h3>
+                <p class="ficha-quees">Para muchas tareas, un CLI ya instalado (<code>bq</code>, <code>gcloud</code>, <code>dbt</code>) es más eficiente en tokens que levantar un servidor MCP — pero no siempre.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando ya existe un CLI oficial y bien documentado para lo que necesitás (BigQuery, GCS, dbt) y Claude puede aprender a usarlo leyendo <code>--help</code> o tu CLAUDE.md, en vez de sumar un servidor MCP dedicado sólo para eso.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Nada especial: dejar que Claude use <code>Bash</code> para correr <code>bq query --use_legacy_sql=false</code> o <code>dbt run</code> directo, documentando en CLAUDE.md los comandos que más se usan.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Para consultar el esquema de una tabla de BigQuery, <code>bq show --schema --format=prettyjson dataset.tabla</code> por Bash resuelve lo mismo que un MCP server de BigQuery, sin la carga adicional en contexto de tener ese servidor conectado.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>No es una regla absoluta: por default, los MCP servers conectados sólo cuestan ~120 tokens en la configuración inicial (schemas completos diferidos, se cargan bajo demanda vía tool search cuando Claude realmente necesita esa herramienta). El costo real aparece cuando herramientas MCP con schemas grandes se cargan por completo — por ejemplo, si desactivás el tool search con <code>ENABLE_TOOL_SEARCH=false</code>. Un MCP vale la pena cuando expone algo que un CLI no puede: acceso autenticado a un servicio sin CLI propio, estado persistente entre llamadas, o una integración (Slack, Notion) sin equivalente de línea de comandos razonable.</p>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t27">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="27" id="check-27" aria-label="Marcar «Printing Press» como que ya lo uso"></span>
+              <span class="ficha-num">27</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Printing Press</h3>
+                <p class="ficha-quees">Proyecto comunitario que genera CLIs optimizados para agentes a partir de cualquier API — el concepto general de "construite tus propias herramientas" importa más que el proyecto puntual.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <span class="etiqueta-no-oficial">No oficial</span>
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando necesitás que Claude interactúe seguido con una API sin un CLI oficial bueno (o sin CLI directamente), y armar una herramienta dedicada te va a ahorrar más tokens a la larga que dejar que arme la request cruda cada vez.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p><a href="https://github.com/mvanhorn/cli-printing-press" target="_blank" rel="noopener">cli-printing-press</a> (repo de la comunidad, no de Anthropic) lee la documentación de una API, arma un CLI en Go pensado para agentes —con flags predecibles, salida token-eficiente— y opcionalmente una skill y un servidor MCP a partir de eso.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>El concepto aplicado a un caso de datos: envolver una API interna de tu empresa que no tiene CLI (un servicio de feature flags, un catálogo de datos propio) en un CLI angosto y predecible, en vez de que Claude arme <code>curl</code> a mano cada vez con distinta sintaxis.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>No es un producto de Anthropic ni figura en la documentación oficial de Claude Code — es una herramienta de terceros. El nombre "Printing Press" también aparece, sin relación directa, como metáfora que usa Boris Cherny (creador de Claude Code) para describir el momento actual de la programación asistida por IA; no confundir la metáfora con el proyecto de software.</p>
+              </div>
+              <div class="nota-correccion">
+                <strong>Verificación:</strong> confirmado por búsqueda directa, no por la documentación oficial de Claude Code (que no lo menciona). Tratalo como una herramienta de terceros para evaluar, no como una recomendación de Anthropic.
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t28">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="28" id="check-28" aria-label="Marcar «Tareas recurrentes» como que ya lo uso"></span>
+              <span class="ficha-num">28</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Tareas recurrentes</h3>
+                <p class="ficha-quees"><code>/loop</code> corre un prompt repetidamente mientras la sesión sigue abierta, con intervalo fijo o dejando que Claude se autorregule el ritmo.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Para chequeos periódicos durante una tarea larga que corre en otro lado: si terminó un backfill, si una DAG que triggereaste manualmente ya terminó, si un deploy de dbt Cloud pasó.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/loop 5m fijate si terminó el backfill de la tabla de ventas históricas
+en BigQuery y avisame el resultado</code></pre>
+                </div>
+                <p>Si omitís el intervalo, Claude decide solo cada cuánto volver a chequear. Si omitís el prompt, corre un chequeo de mantenimiento autónomo (o lo que tengas en <code>.claude/loop.md</code>, si existe).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p><code>/loop 10m</code> revisando el estado de una carga incremental grande en BigQuery lanzada por un job de Airflow, para que te avise apenas termine en vez de que vos tengas que ir a mirar la consola cada rato.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Cada iteración del loop consume tokens como cualquier turno normal — un intervalo muy corto sobre una tarea que tarda horas quema presupuesto de sobra chequeando "todavía no" una y otra vez. Conviene elegir el intervalo en función de cuánto tarda en cambiar el estado real que estás mirando, no dejarlo en el default sin pensarlo.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t31">bucle autónomo</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t29">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="29" id="check-29" aria-label="Marcar «Revisión profunda» como que ya lo uso"></span>
+              <span class="ficha-num">29</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Revisión profunda</h3>
+                <p class="ficha-quees"><code>/code-review ultra</code> lanza una flota de agentes revisores en un sandbox remoto para encontrar bugs reales antes de mergear, con cada hallazgo verificado de forma independiente.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Antes de mergear un cambio grande o sensible — una migración de esquema, un refactor de la lógica de un DAG productivo — donde un <code>/code-review</code> local rápido no da la confianza suficiente.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/code-review ultra
+/code-review ultra develop     # contra una base distinta a la default
+/code-review ultra 1234        # revisa el PR #1234</code></pre>
+                </div>
+                <p><code>/ultrareview</code> es alias de <code>/code-review ultra</code> cuando está disponible en tu cuenta. Requiere login con cuenta de claude.ai (no alcanza sólo con API key).</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Correr <code>/code-review ultra</code> sobre una rama que reescribe el particionado de la tabla de hechos de ventas antes de abrir el PR, para que verifique de forma independiente cada hallazgo en vez de tirarte sugerencias de estilo sin chequear.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Tiene límites de uso reales: en plan Pro/Max son 3 corridas gratis <em>de por vida</em> (no se renuevan), Team/Enterprise no tiene gratis ninguna; después cuesta entre ~$5 y $25 en usage credits por corrida, según el tamaño del cambio, facturado aparte del plan normal. No está disponible con Amazon Bedrock, Google Cloud, Microsoft Foundry ni en organizaciones con Zero Data Retention. El límite de diff es 500 archivos / 8000 líneas cambiadas por default — para repos más grandes, sugiere pasar a modo PR. Tarda entre 5 y 10 minutos y corre en background, sin bloquear tu sesión.</p>
+              </div>
+              <div class="nota-correccion">
+                <strong>Corrección respecto a la lista original:</strong> es <code>/code-review ultra</code> (dos palabras, subcomando), no <code>/ultra review</code>. <code>/ultrareview</code> existe como alias de una sola palabra cuando la función está habilitada en la cuenta.
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t30">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="30" id="check-30" aria-label="Marcar «Hospedaje en VPS» como que ya lo uso"></span>
+              <span class="ficha-num">30</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Hospedaje en VPS</h3>
+                <p class="ficha-quees">Correr Claude Code sin supervisión en un servidor remoto, apoyándose en el modo no interactivo (<code>-p</code>) documentado, más herramientas estándar de sysadmin para que quede corriendo 24/7.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Para automatizaciones que no dependen de que tengas la laptop prendida: un chequeo de calidad de datos que corre cada mañana, un agente que monitorea el estado de DAGs y abre un PR cuando detecta un patrón de fallo repetido.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>El mecanismo documentado es el modo no interactivo:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>claude -p "revisá el estado de las DAGs de la última corrida y \
+avisame por Slack si alguna falló más de dos veces seguidas" \
+  --allowedTools "Bash,Read" \
+  --output-format json</code></pre>
+                </div>
+                <p>Para dejarlo corriendo 24/7 en un VPS, la forma habitual es envolver ese comando en <code>cron</code> (chequeos periódicos) o <code>systemd</code>/<code>tmux</code> (proceso persistente) — esto ya es administración de servidores estándar, no algo específico de Claude Code.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un <code>cron</code> que cada hora corre <code>claude -p --bare</code> con <code>ANTHROPIC_API_KEY</code> seteada, revisa las métricas de frescura de las tablas principales en BigQuery, y sólo escribe algo si encuentra una tabla desactualizada.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>El modo <code>--bare</code> no lee tu login de claude.ai — necesita <code>ANTHROPIC_API_KEY</code> propia, que se factura distinto a una suscripción Pro/Max. Un agente 24/7 corriendo cada tanto sobre datos reales suma costo real de API sin que nadie lo esté mirando en vivo — vale la pena poner un tope de gasto y alertas, no asumir que "es automático" significa "es gratis". Para necesidades de equipo más serias (múltiples agentes, infraestructura propia, sesiones que arranca claude.ai pero corren en tu red) existen los entornos self-hosted de Team/Enterprise, un escalón arriba de simplemente poner <code>claude -p</code> en un cron.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t32">Agent SDK</a> · <a href="#t28">tareas recurrentes</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t31">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="31" id="check-31" aria-label="Marcar «Bucle autónomo» como que ya lo uso"></span>
+              <span class="ficha-num">31</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Bucle autónomo</h3>
+                <p class="ficha-quees"><code>/goal</code> fija una condición de éxito y Claude sigue iterando por su cuenta, turno tras turno, hasta cumplirla.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Para tareas que requieren varias vueltas de prueba-y-error sin que necesites estar confirmando cada paso — hacer pasar un test suite completo, converger un modelo de dbt hasta que compile sin errores en los tres entornos.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>/goal hacé que `dbt build --select tag:diario` pase sin errores
+ni warnings en el target de staging
+
+/goal clear   # cancela el objetivo activo antes de tiempo</code></pre>
+                </div>
+                <p><code>/goal</code> sin argumentos muestra el objetivo activo (o el último cumplido). Para cancelarlo antes de tiempo, además de <code>clear</code> también aceptan <code>stop</code>, <code>off</code>, <code>reset</code>, <code>none</code> o <code>cancel</code>.</p>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Fijar como objetivo que los tests de <code>schema.yml</code> de dbt pasen para todos los modelos de un dominio, y dejar que Claude itere solo corrigiendo tests rotos uno por uno hasta que el suite completo esté verde.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Un objetivo mal definido ("mejorá la calidad de los datos") no tiene condición de parada clara, así que Claude puede iterar de más buscando qué más tocar. Definilo con un criterio verificable de forma automática (un comando que devuelve éxito o falla), no con una aspiración — es la diferencia entre un bucle que converge y uno que da vueltas gastando tokens sin rumbo.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t28">tareas recurrentes</a></p>
+            </div>
+          </details>
+        </article>
+
+        <article class="ficha">
+          <details class="ficha-caja" id="t32">
+            <summary class="ficha-resumen">
+              <span class="ficha-check-wrap"><input type="checkbox" class="ficha-check" data-truco="32" id="check-32" aria-label="Marcar «Agent SDK» como que ya lo uso"></span>
+              <span class="ficha-num">32</span>
+              <span class="ficha-titulos">
+                <h3 class="ficha-titulo">Agent SDK</h3>
+                <p class="ficha-quees">Librería (Python, TypeScript, o vía CLI) que expone el mismo loop de agente, manejo de contexto y herramientas de Claude Code, para construir tu propia interfaz programática.</p>
+              </span>
+              <span class="ficha-nivel-badge nivel-experto">Experto</span>
+              <span class="ficha-chevron">▸</span>
+            </summary>
+            <div class="ficha-contenido">
+              <div class="campo">
+                <h4>Cuándo usarlo</h4>
+                <p>Cuando necesitás Claude como pieza de una aplicación propia (un servicio interno de triage de incidentes de datos, un bot de Slack que responde preguntas sobre el warehouse) y no como sesión interactiva de terminal.</p>
+              </div>
+              <div class="campo">
+                <h4>Cómo</h4>
+                <p>Paquetes oficiales <code>claude-agent-sdk</code> (Python) y <code>@anthropic-ai/claude-agent-sdk</code> (TypeScript), o la variante más simple, el CLI en modo no interactivo:</p>
+                <div class="bloque-codigo">
+                  <button class="btn-copiar" type="button">Copiar</button>
+                  <pre><code>claude -p "encontrá y arreglá el bug en el DAG de ventas" \
+  --allowedTools "Read,Edit,Bash"</code></pre>
+                </div>
+              </div>
+              <div class="campo">
+                <h4>Ejemplo</h4>
+                <p>Un servicio interno en Python que usa el SDK para recibir una alerta de calidad de datos, armar un prompt con el contexto de la tabla afectada, y devolver un diagnóstico estructurado — sin que nadie tenga que abrir una terminal.</p>
+              </div>
+              <div class="campo campo-detalle">
+                <h4>Detalle que la mayoría se pierde</h4>
+                <p>Con el Agent SDK, vos hospedás y operás el agente en tu propia infraestructura — Anthropic te da la librería, no el hosting. Eso es distinto de un servicio administrado por Anthropic, donde ellos corren el sandbox. Si sólo necesitás automatizar tareas puntuales sin construir una app nueva alrededor, <code>claude -p</code> a secas (sin meterse con el SDK de Python/TS) suele alcanzar y es más simple de mantener.</p>
+              </div>
+              <p class="relacionados">Relacionado: <a href="#t30">hospedaje en VPS</a></p>
+            </div>
+          </details>
+        </article>
+
+      </section>
+
+    </main>
+
+    <footer class="pie">
+      <p>Página de referencia standalone, sin frameworks ni build step. Verificada contra la documentación oficial de Claude Code al momento de escribirse (agosto 2026) — los comandos y flags pueden cambiar con nuevas versiones.</p>
+    </footer>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
