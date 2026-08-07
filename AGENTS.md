@@ -10,7 +10,7 @@ Wiki de referencia en español sobre **Claude Code**: cómo funciona, cómo conf
 
 - **Claude Code es el agente principal** de este repo: es quien coordina el trabajo, decide estructura, arma commits/PRs y tiene la última palabra si hay una diferencia de criterio.
 - **Antigravity CLI es agente secundario**: se usa para tareas puntuales en paralelo — segunda opinión sobre un documento, revisión de consistencia, un borrador inicial de una sección, búsqueda/investigación — pero no decide solo sobre estructura del repo (carpetas, índice del README, convenciones de `CONTRIBUTING.md`). Si Antigravity detecta que algo así conviene cambiarlo, lo propone en vez de aplicarlo directo.
-- Ninguno de los dos hace `git push` a `main` ni fuerza cambios en el historial sin que el usuario lo pida explícitamente.
+- Ninguno de los dos comitea directo a `main` ni fuerza cambios en el historial: todo cambio va en una rama y un Pull Request, siguiendo [GIT.md](GIT.md). Ningún agente hace `git push` a `main` ni mergea un PR sin que el usuario lo pida explícitamente.
 
 ## Cómo conviven
 

@@ -49,4 +49,4 @@ assets/                Material de referencia no versionado como código (ej. la
 
 ## Cómo contribuir
 
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) para las convenciones de estilo y estructura antes de sumar contenido.
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para las convenciones de estilo y estructura antes de sumar contenido, y [GIT.md](GIT.md) para el flujo de git del repo (ramas, PRs, merge).
