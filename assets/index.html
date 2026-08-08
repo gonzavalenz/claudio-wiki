@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code para equipos de datos</title>
+<meta name="description" content="Punto de entrada a la guía de referencia y a los 32 trucos de Claude Code para equipos de datos.">
+<style>
+:root{
+  --bg:#0f1417;
+  --panel:#161c20;
+  --panel-2:#1c2428;
+  --panel-3:#212a2f;
+  --border:#2a343a;
+  --border-soft:#232c31;
+  --text:#e6edf0;
+  --text-dim:#93a5ab;
+  --text-faint:#5b6b71;
+  --teal:#56c2b8;
+  --teal-soft:#17302d;
+  --amber:#e8a33d;
+  --amber-soft:#362a17;
+  --rust:#c6604a;
+  --rust-soft:#33211c;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+*{ box-sizing:border-box; }
+@media (prefers-reduced-motion: reduce){ *{ transition-duration:0.001ms !important; } }
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh; display:flex; flex-direction:column;
+}
+::selection{ background:var(--teal); color:#0b1213; }
+a{ color:var(--teal); text-decoration:none; }
+:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; border-radius:4px; }
+
+.wrap{ max-width:980px; margin:0 auto; padding:0 clamp(20px,5vw,48px); width:100%; flex:1; }
+
+header.hero{ padding:72px 0 40px; }
+header.hero .eyebrow{ font-family:var(--mono); font-size:12.5px; color:var(--teal); letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px; }
+header.hero h1{ font-family:var(--mono); font-weight:600; font-size:clamp(26px,4vw,38px); line-height:1.2; margin:0 0 14px; color:#f4f1e9; letter-spacing:-0.01em; }
+header.hero p{ color:var(--text-dim); font-size:16px; max-width:62ch; margin:0; }
+
+.cards{ display:grid; grid-template-columns:1fr 1fr; gap:20px; padding-bottom:80px; }
+
+.card{
+  background:var(--panel); border:1px solid var(--border); border-radius:12px;
+  padding:26px 26px 24px; display:flex; flex-direction:column;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.card:hover{ border-color:var(--text-faint); transform:translateY(-2px); }
+
+.card .tag{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; padding:3px 10px; border-radius:999px; width:fit-content; margin-bottom:16px; }
+.card.guia .tag{ background:var(--teal-soft); color:var(--teal); }
+.card.trucos .tag{ background:var(--amber-soft); color:var(--amber); }
+
+.card h2{ font-family:var(--mono); font-size:19px; color:#f4f1e9; margin:0 0 10px; letter-spacing:-0.01em; }
+.card > p{ color:var(--text-dim); font-size:14.5px; margin:0 0 18px; }
+
+.card ul{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:8px; }
+.card li{ font-size:13.5px; color:var(--text-dim); padding-left:16px; position:relative; }
+.card li::before{ content:"·"; position:absolute; left:0; color:var(--text-faint); }
+.card.guia li::before{ color:var(--teal); }
+.card.trucos li::before{ color:var(--amber); }
+
+.card-foot{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:16px; border-top:1px solid var(--border-soft); }
+.badge{ font-family:var(--mono); font-size:12px; color:var(--text-faint); }
+.enter{ font-family:var(--mono); font-size:13.5px; color:var(--text); display:inline-flex; align-items:center; gap:6px; }
+.card.guia .enter{ color:var(--teal); }
+.card.trucos .enter{ color:var(--amber); }
+
+.card > a.overlay{ position:absolute; inset:0; }
+.card{ position:relative; }
+
+footer.pie{ max-width:980px; margin:0 auto; padding:0 clamp(20px,5vw,48px) 40px; color:var(--text-faint); font-size:13px; font-family:var(--mono); }
+
+@media (max-width:720px){
+  .cards{ grid-template-columns:1fr; }
+  header.hero{ padding:48px 0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Claude Code · equipo de datos</div>
+    <h1>Dos formas de mirar lo mismo.</h1>
+    <p>Una guía de referencia para entender cada pieza de punta a punta, y una lista de trucos concretos para el día a día. Elegí por dónde entrar.</p>
+  </header>
+
+  <div class="cards">
+    <article class="card guia">
+      <span class="tag">Guía de referencia</span>
+      <h2>Claude Code para equipos de datos</h2>
+      <p>Qué es cada pieza — agentes, modelos, memoria, skills, subagents, hooks, MCP — cómo se usa y cuándo conviene, con ejemplos para un stack de Python, GCP y BigQuery.</p>
+      <ul>
+        <li>Fundamentos y bucle agéntico</li>
+        <li>Modelos, permisos y memoria</li>
+        <li>Skills, subagents, hooks y MCP</li>
+        <li>Arquitecturas de integración, estructura y costos</li>
+      </ul>
+      <div class="card-foot">
+        <span class="badge">16 secciones</span>
+        <span class="enter">Entrar →</span>
+      </div>
+      <a class="overlay" href="claude-code-guia-equipo-datos.html" aria-label="Ir a la guía de referencia"></a>
+    </article>
+
+    <article class="card trucos">
+      <span class="tag">Referencia rápida</span>
+      <h2>32 trucos de Claude Code</h2>
+      <p>Técnicas concretas verificadas contra la documentación oficial, organizadas en tres niveles, con buscador, filtros y progreso guardado en el navegador.</p>
+      <ul>
+        <li>Básico: CLAUDE.md, modo Plan, contexto</li>
+        <li>Intermedio: subagentes, skills, rewind</li>
+        <li>Experto: hooks, Agent SDK, bucle autónomo</li>
+      </ul>
+      <div class="card-foot">
+        <span class="badge">32 trucos · 3 niveles</span>
+        <span class="enter">Entrar →</span>
+      </div>
+      <a class="overlay" href="32-trucos-claude-code/index.html" aria-label="Ir a los 32 trucos"></a>
+    </article>
+  </div>
+</div>
+
+<footer class="pie">assets/ · sin frameworks ni build step · material de referencia, no fuente de verdad del contenido en docs/</footer>
+
+</body>
+</html>
