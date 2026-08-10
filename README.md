@@ -16,7 +16,7 @@ buenas-practicas/      Reglas y recomendaciones de uso ("los mandamientos"): qu�
 casos-de-uso/          Escenarios reales resueltos con Claude Code, de punta a punta.
 ejemplos/              Configuraciones, prompts, comandos y snippets reutilizables (CLAUDE.md, hooks, skills, slash commands).
 context/               Contexto personal (stack de laburo y personal) para orientar ejemplos y recomendaciones.
-assets/                Material de referencia no versionado como código (ej. la guía visual en HTML).
+assets/                Material de referencia no versionado como código: mini-sitio HTML standalone (assets/index.html) con la guía visual y los 32 trucos, cross-linkeados.
 ```
 
 ## Contexto
@@ -45,7 +45,7 @@ assets/                Material de referencia no versionado como código (ej. la
 ## Convenciones
 
 - **Idioma**: contenido en español. Los términos técnicos propios de Claude Code (`skills`, `hooks`, `subagents`, `MCP`, `slash commands`, etc.) se dejan en inglés, sin traducir, porque así se los conoce en la documentación y en la comunidad. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
-- **Fuente visual**: `assets/claude-code-guia-equipo-datos.html` es una guía standalone en HTML (mismo tema, formato de página única navegable) que se mantiene aparte como pieza de referencia/diseño, no como fuente de verdad del contenido escrito en `docs/`.
+- **Fuente visual**: `assets/` tiene un mini-sitio HTML standalone, sin build step, con punto de entrada en `assets/index.html`: la guía completa (`claude-code-guia-equipo-datos.html`) y los 32 trucos (`32-trucos-claude-code/`), navegables entre sí. Se mantienen aparte como pieza de referencia/diseño, no como fuente de verdad del contenido escrito en `docs/`.
 
 ## Cómo contribuir
 
