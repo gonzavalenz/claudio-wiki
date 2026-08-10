@@ -2,6 +2,8 @@
 
 Este documento define cómo se maneja el control de versiones en este repo. Es un flujo simple (GitHub Flow) pensado para ir practicando git de forma genuina, sin la complejidad de modelos como Gitflow. No confundir con `CONTRIBUTING.md`, que habla de convenciones de *contenido* (idioma, formato, dónde va cada cosa), no de proceso.
 
+Si estás recién arrancando con git y querés entender los conceptos (commit, branch, merge, PR) antes de esta convención puntual, ver primero [docs/git-basico.md](docs/git-basico.md).
+
 ## Regla principal
 
 **`main` siempre queda estable.** Nadie comitea directo ahí — ni el usuario, ni un agente (ver [AGENTS.md](AGENTS.md)). Todo cambio, grande o chico, entra por una rama y un Pull Request.
