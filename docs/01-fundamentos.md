@@ -1,36 +1,83 @@
-# Fundamentos: LLM, agente y el bucle agéntico
+# Fundamentos: LLM, agente y agentic loop
+
+> **En 30 segundos:** un LLM solo predice texto. Claude Code es un *agente*: el mismo modelo, envuelto en un programa (el *harness*) que le da `tools` para leer, editar y ejecutar cosas en tu máquina, y que le devuelve el resultado de cada acción para que decida el paso siguiente. Ese ciclo es el `agentic loop`. Lo que más limita a un agente no es la inteligencia del modelo, sino el `context window`.
 
 ## LLM vs. agente
 
-Un **LLM** (Large Language Model, como los modelos Claude) es, en el fondo, una función que recibe texto y devuelve texto: le das un prompt y te devuelve una continuación. Por sí solo no puede leer un archivo, ejecutar un comando ni saber si lo que escribió es correcto — solo predice qué texto viene después.
+| | LLM "a secas" (chat) | Agente (Claude Code) |
+|---|---|---|
+| Qué hace | Recibe texto, devuelve texto | Recibe una tarea y actúa hasta resolverla |
+| Ve tu código | Solo lo que le pegues | Lo busca y lo lee solo |
+| Ejecuta cosas | No | Sí: comandos, tests, `git`, `dbt`, `bq`... |
+| Verifica | No sabe si lo que dijo funciona | Corre el test, lee el error, corrige |
+| Tu rol | Copiar y pegar entre pasos | Dar contexto, dirigir y revisar |
 
-Un **agente** es un LLM al que se le da la capacidad de **actuar sobre el mundo real** (leer archivos, correr comandos, buscar en la web, editar código) y de **ver el resultado de esas acciones** para decidir el siguiente paso. Claude Code es un agente: el modelo detrás es el mismo LLM, pero envuelto en un programa que le da `tools` (herramientas) y un ciclo de ejecución.
-
-La diferencia práctica: un chatbot LLM responde una vez y listo. Un agente puede iterar solo — probar algo, ver que falló, corregir, volver a probar — sin que el usuario tenga que copiar y pegar resultados manualmente entre pasos.
+El modelo detrás es el mismo. La diferencia la pone el **harness**: la capa que le da herramientas al modelo y administra qué contexto ve.
 
 ## El agentic loop
 
-El **bucle agéntico** (agentic loop) es el mecanismo que convierte a un LLM en agente:
+Según la documentación oficial, el loop tiene tres fases que se mezclan entre sí:
 
-1. El usuario da una instrucción.
-2. El modelo decide si puede responder directamente o si necesita usar una **tool** (leer un archivo, correr un comando, buscar código, etc.).
-3. Si decide usar una tool, el programa que lo envuelve (Claude Code) **ejecuta esa acción de verdad** y le devuelve el resultado al modelo como parte de la conversación.
-4. El modelo lee ese resultado y decide el siguiente paso: usar otra tool, pedir confirmación, o responder al usuario.
-5. Se repite desde el paso 2 hasta que la tarea está resuelta.
+1. **Juntar contexto**: buscar archivos, leer código, mirar `git status`, leer errores.
+2. **Actuar**: editar archivos, correr comandos.
+3. **Verificar**: correr tests o el comando que corresponda y ver si funcionó.
 
-Ejemplo concreto: pedís "arreglá el bug en el login". El modelo no "sabe" dónde está el bug de entrada — busca el archivo relevante (tool de búsqueda), lo lee (tool de lectura), identifica el problema, lo edita (tool de edición), y opcionalmente corre los tests (tool de ejecución) para confirmar que funcionó. Cada una de esas acciones es una vuelta del loop.
+Se repite hasta que la tarea está resuelta. Cada uso de una tool devuelve información nueva que alimenta la siguiente decisión. Vos también sos parte del loop: podés interrumpir en cualquier momento (`Esc`) o mandar una corrección mientras trabaja (ver [Plan mode y checkpoints](09-plan-mode-y-checkpoints.md)).
 
-Esto es lo que hace que interactuar con Claude Code se sienta distinto a usar un chat: no es "una pregunta, una respuesta", es una tarea que el agente puede trabajar en varios pasos, con o sin intervención del usuario en el medio (ver [permisos](07-permisos.md) para cuánta intervención pedís).
+## Las tools: lo que lo hace agente
 
-## Por qué Claude Code es un agente y no un autocompletado
+| Categoría | Qué puede hacer |
+|---|---|
+| Archivos | Leer, editar, crear, renombrar |
+| Búsqueda | Encontrar archivos por patrón, buscar contenido con regex |
+| Ejecución | Correr comandos de shell, tests, `git`, servidores |
+| Web | Buscar en la web, leer documentación, buscar mensajes de error |
+| Code intelligence | Ver errores de tipos, ir a definiciones (requiere plugins de code intelligence) |
 
-Un autocompletado de código (como el de un IDE tradicional) sugiere la próxima línea o función en base al contexto inmediato del archivo abierto. No explora el repo, no corre comandos, no decide una estrategia de varios pasos: solo completa.
+Además tiene tools para lanzar [subagents](11-subagents.md), hacerte preguntas y orquestar trabajo. Todo lo demás ([skills](10-skills.md), [MCP](13-mcp.md), [hooks](12-hooks.md), [plugins](14-plugins.md)) son capas que se suman encima de este loop.
 
-Claude Code, en cambio:
+## Qué ve Claude cuando arranca
 
-- **Explora el proyecto** antes de actuar (busca archivos, lee código relacionado, entiende convenciones existentes).
-- **Ejecuta acciones reales** (correr tests, hacer builds, usar `git`, llamar APIs) y ajusta su plan según el resultado.
-- **Mantiene una tarea en curso** a lo largo de múltiples pasos, no solo la línea siguiente.
-- **Puede delegar** partes del trabajo en [subagents](09-subagents.md) o seguir procedimientos empaquetados en [skills](08-skills.md).
+Cuando corrés `claude` en una carpeta, tiene acceso a:
 
-En otras palabras: el autocompletado optimiza la escritura de código línea por línea; el agente resuelve una tarea de principio a fin, decidiendo por su cuenta qué pasos son necesarios.
+- **Tu proyecto**: la carpeta y subcarpetas (y otras rutas si lo autorizás).
+- **Tu terminal**: cualquier comando que vos podrías correr.
+- **Tu estado de git**: rama actual, cambios sin commitear, commits recientes.
+- **Tu `CLAUDE.md`** y la **auto memory** (ver [Memoria](06-memoria.md)).
+- **Las extensiones que configures**: MCP, skills, subagents.
+
+Lo que **no** ve: la conversación de sesiones anteriores. Cada sesión arranca con un `context window` nuevo. Lo que tiene que sobrevivir entre sesiones va en `CLAUDE.md`.
+
+## Ejemplo: un test de dbt que falla
+
+Le pedís:
+
+```text
+el test not_null de fct_pedidos.cliente_id está fallando en dev. Encontrá por qué y arreglalo.
+```
+
+Lo que hace el loop, vuelta por vuelta:
+
+1. Corre `dbt test --select fct_pedidos` para ver el error real.
+2. Lee `models/marts/fct_pedidos.sql` y el `schema.yml`.
+3. Sigue el `ref()` hasta `stg_pedidos.sql` y ve que hay un `LEFT JOIN` a clientes.
+4. Corre una query con `bq query` para contar cuántas filas quedan con `cliente_id` nulo.
+5. Propone el cambio (filtrar, o cambiar el join), lo edita.
+6. Vuelve a correr `dbt test --select fct_pedidos` para confirmar.
+
+No le dijiste qué archivos abrir ni qué comandos correr: eso lo resuelve el loop. Vos aportás lo que no está en el código (por ejemplo, "los pedidos sin cliente son pedidos de prueba, se pueden filtrar").
+
+## Trucos y errores comunes
+
+- **Delegá, no dictes.** Dale el objetivo y el contexto que solo vos sabés; dejá que él elija los pasos. "El checkout falla con tarjetas vencidas, el código está en `src/payments/`" rinde más que una lista de 10 pasos.
+- **Dale una forma de verificar.** Es lo que más mejora el resultado: un test, un `dbt build --select`, una query de control, un output esperado. Sin verificación, el agente entrega algo *plausible*, no algo *correcto*.
+- **Es una conversación.** Si el primer intento no es lo que querías, no arranques de cero: corregí ("no, el problema está en el manejo de la sesión").
+- **El context window es el recurso escaso.** Cada archivo leído y cada output de comando lo ocupa. Sesiones largas y mezcladas rinden peor. Ver [Contexto](05-contexto.md).
+- **Claude Code te puede enseñar a usarlo.** Preguntale "¿cómo configuro un hook?" o "¿cómo debería armar mi CLAUDE.md?".
+
+## Ver también
+
+- [Qué es Claude Code y dónde vive](02-que-es-claude-code.md)
+- [Contexto: el recurso que más hay que cuidar](05-contexto.md)
+- [Permisos](07-permisos.md) — cuánto puede hacer solo
+- [Plan mode y checkpoints](09-plan-mode-y-checkpoints.md)

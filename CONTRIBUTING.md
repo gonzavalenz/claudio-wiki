@@ -24,6 +24,25 @@ Este repo crece de forma incremental. Antes de agregar o editar contenido, tené
 - Preferir ejemplos concretos por sobre descripciones abstractas.
 - Enlazar entre documentos relacionados (ej: un caso de uso que use `skills` linkea a `docs/08-skills.md`).
 
+## Plantilla de capítulo (`docs/`)
+
+Cada capítulo sigue la misma forma para que se pueda escanear rápido:
+
+```markdown
+# Título
+
+> **En 30 segundos:** 2–3 líneas con la idea central.
+
+## Qué es / cómo funciona
+## Cómo se usa              (comandos, rutas, config copiable)
+## Ejemplo                  (con el stack de context/stack.md)
+## Trucos y errores comunes (los matices no obvios)
+## Ver también              (links a otros capítulos y ejemplos)
+```
+
+- **Verificar antes de escribir**: comandos, flags, rutas y campos de config se chequean contra la [documentación oficial](https://code.claude.com/docs/en/claude_code_docs_map.md). Lo que no se pudo verificar, no se publica.
+- Los capítulos están numerados por orden de lectura y agrupados en 5 partes (ver índice en el [README](README.md)). Si se agrega uno, se actualiza el índice del README y la guía visual de `assets/`.
+
 ## Estado de los documentos
 
 Mientras un archivo esté incompleto, se puede marcar arriba del todo con:

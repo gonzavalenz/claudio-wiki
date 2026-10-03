@@ -1,52 +1,76 @@
-# Claude Code — Guía, buenas prácticas y casos de uso
+# Claude Code — guía práctica en español
 
-Este repo es una wiki de referencia sobre **Claude Code**: cómo funciona, cómo configurarlo, buenas prácticas de uso y casos de uso reales, pensada para ir creciendo con el tiempo a medida que sumamos experiencia usándolo.
+Todo lo que hay que saber para sacarle el máximo jugo a **Claude Code**: cómo funciona, cómo configurarlo, buenas prácticas, trucos, `skills`, `subagents`, `hooks`, `MCP`, automatización y trabajo con otros agentes. Ejemplos orientados a un stack de datos (Python, GCP, BigQuery, dbt, Airflow).
 
-No es documentación oficial de Anthropic — es una base de conocimiento propia, con nuestras convenciones, ejemplos y decisiones.
+No es documentación oficial de Anthropic: es una base de conocimiento propia, verificada contra la [documentación oficial](https://code.claude.com/docs).
 
-## Estado
+**Versión visual:** abrí [`assets/index.html`](assets/index.html) en el navegador (doble clic, sin instalar nada).
 
-🚧 En construcción. La estructura ya está armada; el contenido se va completando de a poco.
+## Empezá acá
+
+Si tenés una hora, leé esto en orden y ya trabajás mejor que la mayoría:
+
+1. [Instalación y primeros pasos](docs/03-instalacion.md) — instalar, `/init`, primera sesión.
+2. [Contexto](docs/05-contexto.md) — la regla que más impacta en la calidad: contexto limpio, `/clear`, `/compact`.
+3. [Memoria (`CLAUDE.md`)](docs/06-memoria.md) — que no tengas que reexplicar el proyecto.
+4. [Plan mode y checkpoints](docs/09-plan-mode-y-checkpoints.md) — explorar → planificar → implementar → commitear.
+5. [Buenas prácticas](buenas-practicas/README.md) — los mandamientos, en una página.
+
+Después, tené a mano el [cheatsheet](docs/cheatsheet.md).
+
+## Índice
+
+### 1 · Entender
+1. [Fundamentos: LLM, agente y el bucle agéntico](docs/01-fundamentos.md)
+2. [Qué es Claude Code y dónde vive](docs/02-que-es-claude-code.md)
+3. [Instalación y primeros pasos](docs/03-instalacion.md)
+4. [Modelos y esfuerzo: cuál usar para qué](docs/04-modelos.md)
+5. [Contexto: el recurso que más importa](docs/05-contexto.md)
+
+### 2 · Configurar
+6. [Memoria: `CLAUDE.md` y compañía](docs/06-memoria.md)
+7. [Permisos: cuánta autonomía le das](docs/07-permisos.md)
+8. [Slash commands y atajos de teclado](docs/08-comandos-slash.md)
+9. [Plan mode y checkpoints](docs/09-plan-mode-y-checkpoints.md)
+
+### 3 · Extender
+10. [Skills: empaquetar procedimientos](docs/10-skills.md)
+11. [Subagents: delegar sin ensuciar el contexto](docs/11-subagents.md)
+12. [Hooks: reglas que siempre se cumplen](docs/12-hooks.md)
+13. [MCP: conectar herramientas externas](docs/13-mcp.md)
+14. [Plugins: compartir todo lo anterior](docs/14-plugins.md)
+
+### 4 · Escalar
+15. [Paralelismo y worktrees](docs/15-paralelismo-y-worktrees.md)
+16. [Automatización: headless, CI y tareas programadas](docs/16-automatizacion.md)
+17. [Multi-agente: delegar tareas chicas a Gemini](docs/17-multi-agente-gemini.md)
+18. [Arquitecturas de integración](docs/18-arquitecturas-de-integracion.md)
+
+### 5 · Día a día
+19. [Estructura de proyecto](docs/19-estructura-de-proyecto.md)
+20. [Flujos de trabajo](docs/20-flujos-de-trabajo.md)
+21. [Costos](docs/21-costos.md)
+
+### Referencia
+- [Cheatsheet](docs/cheatsheet.md) — comandos, atajos y rutas en una página.
+- [Buenas prácticas](buenas-practicas/README.md) — regla → por qué → cómo.
+- [Ejemplos copiables](ejemplos/README.md) — `CLAUDE.md`, `settings.json`, `hooks`, `skills`, `subagents`, `MCP`.
+- [Casos de uso](casos-de-uso/README.md) — escenarios resueltos de punta a punta.
+- [Git básico](docs/git-basico.md) — lo mínimo para trabajar seguro con un agente.
 
 ## Estructura del repo
 
 ```
-docs/                 Guía conceptual, capítulo por capítulo (fundamentos, modelos, memoria, skills, hooks, MCP, etc.)
-buenas-practicas/      Reglas y recomendaciones de uso ("los mandamientos"): qué hacer y qué evitar, y por qué.
-casos-de-uso/          Escenarios reales resueltos con Claude Code, de punta a punta.
-ejemplos/              Configuraciones, prompts, comandos y snippets reutilizables (CLAUDE.md, hooks, skills, slash commands).
-context/               Contexto personal (stack de laburo y personal) para orientar ejemplos y recomendaciones.
-assets/                Material de referencia no versionado como código: mini-sitio HTML standalone (assets/index.html) con la guía visual y los 32 trucos, cross-linkeados.
+docs/              Guía conceptual, un capítulo por tema (5 partes).
+buenas-practicas/  Reglas accionables: qué hacer, qué evitar y por qué.
+casos-de-uso/      Escenarios reales resueltos de punta a punta.
+ejemplos/          Configuraciones y archivos listos para copiar.
+assets/            Versión visual en HTML (guía + 32 trucos), sin build.
+context/           Stack propio, para orientar los ejemplos.
+.claude/skills/    Skills del propio repo (ej. delegar-a-gemini).
+.agents/           Coordinación entre agentes (inbox, backlog).
 ```
-
-## Contexto
-
-[`context/stack.md`](context/stack.md) — stack tecnológico propio (laburo y personal), para que los ejemplos y casos de uso del resto del repo se puedan orientar a herramientas concretas.
-
-## Índice de la guía (`docs/`)
-
-1. [Fundamentos: LLM, agente y el bucle agéntico](docs/01-fundamentos.md)
-2. [Qué es Claude Code y dónde vive](docs/02-que-es-claude-code.md)
-3. [Modelos: cuál usar para qué](docs/03-modelos.md)
-4. [Instalación y primeros pasos](docs/04-instalacion.md)
-5. [Memoria: que no haya que reexplicar el proyecto cada vez](docs/05-memoria.md)
-6. [Comandos: los atajos con `/`](docs/06-comandos-slash.md)
-7. [Permisos: cuánta autonomía le das](docs/07-permisos.md)
-8. [Skills: empaquetar conocimiento y procedimientos](docs/08-skills.md)
-9. [Subagents: delegar sin ensuciar la conversación principal](docs/09-subagents.md)
-10. [Hooks: reglas que no dependen de que el modelo se acuerde](docs/10-hooks.md)
-11. [MCP: conectar herramientas y datos externos](docs/11-mcp.md)
-12. [Arquitecturas de integración](docs/12-arquitecturas-de-integracion.md)
-13. [Estructura de proyecto para sacarle el jugo](docs/13-estructura-de-proyecto.md)
-14. [Flujos de trabajo para el día a día](docs/14-flujos-de-trabajo.md)
-15. [Costos y buenas prácticas de uso](docs/15-costos.md)
-16. [Cheatsheet / referencia rápida](docs/cheatsheet.md)
-
-## Convenciones
-
-- **Idioma**: contenido en español. Los términos técnicos propios de Claude Code (`skills`, `hooks`, `subagents`, `MCP`, `slash commands`, etc.) se dejan en inglés, sin traducir, porque así se los conoce en la documentación y en la comunidad. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
-- **Fuente visual**: `assets/` tiene un mini-sitio HTML standalone, sin build step, con punto de entrada en `assets/index.html`: la guía completa (`claude-code-guia-equipo-datos.html`) y los 32 trucos (`32-trucos-claude-code/`), navegables entre sí. Se mantienen aparte como pieza de referencia/diseño, no como fuente de verdad del contenido escrito en `docs/`.
 
 ## Cómo contribuir
 
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) para las convenciones de estilo y estructura antes de sumar contenido, y [GIT.md](GIT.md) para el flujo de git del repo (ramas, PRs, merge).
+Convenciones de contenido en [CONTRIBUTING.md](CONTRIBUTING.md), flujo de git en [GIT.md](GIT.md) y reglas para agentes (Claude Code + Gemini) en [AGENTS.md](AGENTS.md).
