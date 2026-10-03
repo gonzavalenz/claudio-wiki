@@ -1,0 +1,147 @@
+/* ==========================================================================
+   Guía de referencia — estilos propios (el resto viene de base.css)
+   ========================================================================== */
+
+/* barra con botón "Índice": solo en pantallas chicas */
+.subbar {
+  display: none;
+  position: sticky;
+  top: var(--topnav-h);
+  z-index: 25;
+  align-items: center;
+  gap: 12px;
+  padding: 8px var(--gutter);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.subbar-titulo { font-size: 14px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 900px) {
+  .subbar { display: flex; }
+  html { scroll-padding-top: calc(var(--topnav-h) + 64px); }
+}
+
+/* ---------- portada de la guía ---------- */
+.guia-hero,
+.guia-main {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  max-width: calc(var(--measure) + 2 * var(--gutter) + 40px);
+}
+
+.guia-hero { padding-top: 48px; padding-bottom: 8px; }
+.guia-hero .eyebrow {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 10px;
+}
+.guia-hero h1 { font-size: clamp(28px, 4.2vw, 40px); max-width: 20ch; }
+.guia-hero .lede { color: var(--text-2); font-size: 17px; max-width: 60ch; }
+
+.partes-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.partes-chips li { margin: 0; }
+.partes-chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-1);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.partes-chips a:hover { border-color: var(--accent); }
+.partes-chips .n {
+  display: inline-grid;
+  place-items: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- partes ---------- */
+.parte { padding-top: 40px; }
+
+.parte-head {
+  padding: 22px 0 6px;
+  border-top: 2px solid var(--accent);
+}
+.parte-num {
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.parte-head h2 { font-size: clamp(26px, 3.5vw, 32px); margin-bottom: 6px; }
+.parte-head p:last-child { color: var(--text-2); margin: 0; max-width: 60ch; }
+
+/* ---------- capítulos ---------- */
+.cap { padding-top: 44px; }
+
+.cap-meta {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+.cap-meta a { color: var(--text-3); font-family: var(--mono); font-size: 12.5px; }
+.cap-meta a:hover { color: var(--accent-text); }
+
+.cap-titulo { font-size: 24px; margin-bottom: 16px; }
+
+.cap .resumen-30 .badge { margin-right: 6px; vertical-align: 1px; }
+
+.prosa h4 { font-size: 17px; margin-top: 2em; }
+.prosa h4 .num {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-right: 8px;
+}
+
+.prosa h5 { font-size: 15.5px; margin: 1.6em 0 0.5em; color: var(--heading); }
+.prosa h4[id], .prosa h5[id] { scroll-margin-top: calc(var(--topnav-h) + 16px); }
+
+.callout ul { margin: 0; padding-left: 1.2em; }
+.callout li { margin-bottom: 0.55em; }
+.callout li:last-child { margin-bottom: 0; }
+.callout-warn li::marker { color: var(--accent); }
+.callout-tip li::marker { color: var(--text-2); }
+
+.ver-tambien {
+  margin: 28px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.ver-tambien .lbl {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.ver-tambien ul { margin: 0; padding-left: 1.2em; font-size: 14.5px; }
+.ver-tambien li { color: var(--text-2); margin-bottom: 0.3em; }
+
+.leer-completo { margin: 14px 0 0; font-size: 14px; }
+.leer-completo a { font-weight: 600; }

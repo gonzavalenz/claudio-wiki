@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(dbt parse *)",
+      "Bash(dbt compile *)",
+      "Bash(dbt ls *)",
+      "Bash(dbt list *)",
+      "Bash(bq query --dry_run *)",
+      "Bash(bq show *)",
+      "Bash(bq ls *)",
+      "Bash(bq head *)",
+      "Bash(ruff check *)",
+      "Bash(ruff format *)",
+      "Bash(sqlfluff lint *)",
+      "Bash(uv run pytest *)",
+      "Bash(pytest *)"
+    ],
+    "ask": [
+      "Bash(dbt run *)",
+      "Bash(dbt build *)",
+      "Bash(dbt seed *)",
+      "Bash(dbt snapshot *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(gcloud composer *)",
+      "Bash(gsutil cp *)",
+      "Bash(gcloud storage cp *)"
+    ],
+    "deny": [
+      "Bash(bq rm *)",
+      "Bash(gsutil rm *)",
+      "Bash(gcloud storage rm *)",
+      "Bash(gcloud projects delete *)",
+      "Bash(gcloud composer environments delete *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/*service-account*.json)",
+      "Read(**/*-sa-key.json)",
+      "Read(~/.config/gcloud/**)",
+      "Read(~/.dbt/profiles.yml)"
+    ]
+  }
+}

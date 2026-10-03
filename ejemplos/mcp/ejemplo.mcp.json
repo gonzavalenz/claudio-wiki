@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "bigquery": {
+      "command": "npx",
+      "args": ["-y", "@toolbox-sdk/server", "--prebuilt=bigquery", "--stdio"],
+      "env": {
+        "BIGQUERY_PROJECT": "${BIGQUERY_PROJECT}",
+        "BIGQUERY_LOCATION": "${BIGQUERY_LOCATION:-US}",
+        "BIGQUERY_WRITE_MODE": "blocked",
+        "BIGQUERY_MAXIMUM_BYTES_BILLED": "${BIGQUERY_MAXIMUM_BYTES_BILLED:-10000000000}"
+      }
+    },
+    "dbt": {
+      "command": "uvx",
+      "args": ["dbt-mcp"],
+      "env": {
+        "DBT_PROJECT_DIR": "${DBT_PROJECT_DIR}",
+        "DBT_PATH": "${DBT_PATH}"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PAT}"
+      }
+    }
+  }
+}

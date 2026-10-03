@@ -1,21 +1,19 @@
+/* Lógica propia de la página de trucos: progreso, filtro por nivel, buscador y
+   expandir/colapsar. Tema, copiar código e índice lateral viven en ../js/site.js. */
 (function () {
   "use strict";
 
   var STORAGE_KEY = "claudeTrucosProgreso";
   var TOTAL_TRUCOS = 32;
 
-  var fichas = Array.prototype.slice.call(document.querySelectorAll(".ficha"));
   var checks = Array.prototype.slice.call(document.querySelectorAll(".ficha-check"));
   var filtroBtns = Array.prototype.slice.call(document.querySelectorAll(".filtro-btn"));
   var buscadorInput = document.getElementById("buscador-input");
   var btnExpandir = document.getElementById("btn-expandir");
   var progresoEl = document.getElementById("progreso-contador");
+  var barraEl = document.getElementById("progreso-barra");
   var sinResultados = document.getElementById("sin-resultados");
   var nivelSecciones = Array.prototype.slice.call(document.querySelectorAll(".nivel-seccion"));
-  var indiceLinks = Array.prototype.slice.call(document.querySelectorAll(".indice-link"));
-  var sidebar = document.getElementById("sidebar");
-  var btnIndiceMobile = document.getElementById("btn-indice-mobile");
-  var overlay = document.getElementById("overlay-mobile");
 
   var estado = {
     nivel: "todos",
@@ -57,6 +55,7 @@
       return c.checked;
     }).length;
     progresoEl.textContent = marcados + " / " + TOTAL_TRUCOS;
+    if (barraEl) barraEl.style.width = Math.round((marcados / TOTAL_TRUCOS) * 100) + "%";
   }
 
   function inicializarProgreso() {
@@ -83,57 +82,6 @@
       });
     });
     actualizarContador();
-  }
-
-  // ------------------------------------------------------------------
-  // Copiar código
-  // ------------------------------------------------------------------
-
-  function inicializarCopiar() {
-    var botones = Array.prototype.slice.call(document.querySelectorAll(".btn-copiar"));
-    botones.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var bloque = btn.closest(".bloque-codigo");
-        var codigo = bloque.querySelector("code");
-        var texto = codigo.textContent;
-
-        function marcarCopiado() {
-          var original = btn.textContent;
-          btn.textContent = "Copiado";
-          btn.classList.add("copiado");
-          window.setTimeout(function () {
-            btn.textContent = original;
-            btn.classList.remove("copiado");
-          }, 1600);
-        }
-
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(texto).then(marcarCopiado, function () {
-            copiarFallback(texto);
-            marcarCopiado();
-          });
-        } else {
-          copiarFallback(texto);
-          marcarCopiado();
-        }
-      });
-    });
-  }
-
-  function copiarFallback(texto) {
-    var textarea = document.createElement("textarea");
-    textarea.value = texto;
-    textarea.setAttribute("readonly", "");
-    textarea.style.position = "absolute";
-    textarea.style.left = "-9999px";
-    document.body.appendChild(textarea);
-    textarea.select();
-    try {
-      document.execCommand("copy");
-    } catch (err) {
-      // sin soporte de copiado; el usuario puede seleccionar el texto a mano.
-    }
-    document.body.removeChild(textarea);
   }
 
   // ------------------------------------------------------------------
@@ -211,88 +159,13 @@
   }
 
   // ------------------------------------------------------------------
-  // Índice lateral: resaltado activo al scrollear
-  // ------------------------------------------------------------------
-
-  function inicializarScrollSpy() {
-    if (!("IntersectionObserver" in window)) return;
-
-    var mapa = {};
-    indiceLinks.forEach(function (link) {
-      var id = link.getAttribute("href").replace("#", "");
-      mapa[id] = link;
-    });
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          var link = mapa[entry.target.id];
-          if (!link) return;
-          if (entry.isIntersecting) {
-            indiceLinks.forEach(function (l) {
-              l.classList.remove("activo");
-            });
-            link.classList.add("activo");
-          }
-        });
-      },
-      {
-        rootMargin: "-15% 0px -70% 0px",
-        threshold: 0
-      }
-    );
-
-    fichas.forEach(function (ficha) {
-      var caja = ficha.querySelector(".ficha-caja");
-      if (caja && caja.id) observer.observe(caja);
-    });
-  }
-
-  // ------------------------------------------------------------------
-  // Índice lateral en mobile
-  // ------------------------------------------------------------------
-
-  function inicializarIndiceMobile() {
-    if (!btnIndiceMobile) return;
-
-    function abrir() {
-      sidebar.classList.add("abierto");
-      overlay.classList.add("visible");
-      btnIndiceMobile.setAttribute("aria-expanded", "true");
-    }
-
-    function cerrar() {
-      sidebar.classList.remove("abierto");
-      overlay.classList.remove("visible");
-      btnIndiceMobile.setAttribute("aria-expanded", "false");
-    }
-
-    btnIndiceMobile.addEventListener("click", function () {
-      if (sidebar.classList.contains("abierto")) {
-        cerrar();
-      } else {
-        abrir();
-      }
-    });
-
-    overlay.addEventListener("click", cerrar);
-
-    indiceLinks.forEach(function (link) {
-      link.addEventListener("click", cerrar);
-    });
-  }
-
-  // ------------------------------------------------------------------
   // Init
   // ------------------------------------------------------------------
 
   document.addEventListener("DOMContentLoaded", function () {
     inicializarProgreso();
-    inicializarCopiar();
     inicializarFiltros();
     inicializarBuscador();
     inicializarExpandir();
-    inicializarScrollSpy();
-    inicializarIndiceMobile();
   });
 })();

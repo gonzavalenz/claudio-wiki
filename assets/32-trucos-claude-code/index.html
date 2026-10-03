@@ -5,9 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>32 trucos de Claude Code — equipo de datos</title>
 <meta name="description" content="32 técnicas de uso de Claude Code para un equipo de ingeniería de datos (Python, GCP, BigQuery, dbt, Airflow), verificadas contra la documentación oficial.">
+<link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="styles.css">
+<script src="../js/site.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="topnav">
+  <a class="topnav-brand" href="../index.html"><span class="marca" aria-hidden="true">&gt;_</span><span class="nombre">Claude Code · guía</span></a>
+  <nav aria-label="Secciones del sitio">
+    <ul class="topnav-links">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="../claude-code-guia-equipo-datos.html">Guía</a></li>
+      <li><a href="index.html" aria-current="page">32 trucos</a></li>
+      <li><a href="../claude-code-guia-equipo-datos.html#cheatsheet">Referencia<span class="largo"> rápida</span></a></li>
+    </ul>
+  </nav>
+  <button class="theme-toggle" type="button" aria-label="Cambiar tema">☾</button>
+</header>
 
 <div class="overlay-mobile" id="overlay-mobile"></div>
 
@@ -16,64 +32,65 @@
   <nav class="sidebar" id="sidebar" aria-label="Índice de trucos">
     <div class="sidebar-head">
       <span class="etiqueta">Claude Code</span>
-      <h1>32 trucos para equipos de datos</h1>
+      <p class="titulo">32 trucos para equipos de datos</p>
       <p>Python · GCP · BigQuery · dbt · Airflow</p>
     </div>
 
     <div class="indice-grupo" data-nivel="basico">
-      <p class="indice-grupo-titulo">Nivel básico</p>
-      <a class="indice-link" href="#t01">01 · CLAUDE.md</a>
-      <a class="indice-link" href="#t02">02 · Barra de estado</a>
-      <a class="indice-link" href="#t03">03 · Esfuerzo y modelo</a>
-      <a class="indice-link" href="#t04">04 · Contexto corto</a>
-      <a class="indice-link" href="#t05">05 · Monitoreo de contexto</a>
-      <a class="indice-link" href="#t06">06 · Compactación</a>
-      <a class="indice-link" href="#t07">07 · Modo Plan</a>
-      <a class="indice-link" href="#t08">08 · Salida temprana</a>
-      <a class="indice-link" href="#t09">09 · Capturas de pantalla</a>
-      <a class="indice-link" href="#t10">10 · Entrada de voz</a>
-      <a class="indice-link" href="#t11">11 · Preguntas proactivas</a>
+      <p class="indice-grupo-titulo">Básico</p>
+      <a class="indice-link" href="#t01"><span class="num">01</span><span class="txt">CLAUDE.md</span></a>
+      <a class="indice-link" href="#t02"><span class="num">02</span><span class="txt">Barra de estado</span></a>
+      <a class="indice-link" href="#t03"><span class="num">03</span><span class="txt">Esfuerzo y modelo</span></a>
+      <a class="indice-link" href="#t04"><span class="num">04</span><span class="txt">Contexto corto</span></a>
+      <a class="indice-link" href="#t05"><span class="num">05</span><span class="txt">Monitoreo de contexto</span></a>
+      <a class="indice-link" href="#t06"><span class="num">06</span><span class="txt">Compactación</span></a>
+      <a class="indice-link" href="#t07"><span class="num">07</span><span class="txt">Modo Plan</span></a>
+      <a class="indice-link" href="#t08"><span class="num">08</span><span class="txt">Salida temprana</span></a>
+      <a class="indice-link" href="#t09"><span class="num">09</span><span class="txt">Capturas de pantalla</span></a>
+      <a class="indice-link" href="#t10"><span class="num">10</span><span class="txt">Entrada de voz</span></a>
+      <a class="indice-link" href="#t11"><span class="num">11</span><span class="txt">Preguntas proactivas</span></a>
     </div>
 
     <div class="indice-grupo" data-nivel="intermedio">
-      <p class="indice-grupo-titulo">Nivel intermedio</p>
-      <a class="indice-link" href="#t12">12 · Subagentes</a>
-      <a class="indice-link" href="#t13">13 · Skills personalizadas</a>
-      <a class="indice-link" href="#t14">14 · Actualizar skills</a>
-      <a class="indice-link" href="#t15">15 · CLAUDE.md vivo</a>
-      <a class="indice-link" href="#t16">16 · Vínculos dinámicos</a>
-      <a class="indice-link" href="#t17">17 · Árbol de archivos</a>
-      <a class="indice-link" href="#t18">18 · Rebobinar</a>
-      <a class="indice-link" href="#t19">19 · Elección de interfaz</a>
-      <a class="indice-link" href="#t20">20 · Retomar sesiones</a>
-      <a class="indice-link" href="#t21">21 · Navegador</a>
-      <a class="indice-link" href="#t22">22 · Verificación web</a>
+      <p class="indice-grupo-titulo">Intermedio</p>
+      <a class="indice-link" href="#t12"><span class="num">12</span><span class="txt">Subagentes</span></a>
+      <a class="indice-link" href="#t13"><span class="num">13</span><span class="txt">Skills personalizadas</span></a>
+      <a class="indice-link" href="#t14"><span class="num">14</span><span class="txt">Actualizar skills</span></a>
+      <a class="indice-link" href="#t15"><span class="num">15</span><span class="txt">CLAUDE.md vivo</span></a>
+      <a class="indice-link" href="#t16"><span class="num">16</span><span class="txt">Vínculos dinámicos</span></a>
+      <a class="indice-link" href="#t17"><span class="num">17</span><span class="txt">Árbol de archivos</span></a>
+      <a class="indice-link" href="#t18"><span class="num">18</span><span class="txt">Rebobinar</span></a>
+      <a class="indice-link" href="#t19"><span class="num">19</span><span class="txt">Elección de interfaz</span></a>
+      <a class="indice-link" href="#t20"><span class="num">20</span><span class="txt">Retomar sesiones</span></a>
+      <a class="indice-link" href="#t21"><span class="num">21</span><span class="txt">Navegador</span></a>
+      <a class="indice-link" href="#t22"><span class="num">22</span><span class="txt">Verificación web</span></a>
     </div>
 
     <div class="indice-grupo" data-nivel="experto">
-      <p class="indice-grupo-titulo">Nivel experto</p>
-      <a class="indice-link" href="#t23">23 · Memoria persistente</a>
-      <a class="indice-link" href="#t24">24 · Hooks productivos</a>
-      <a class="indice-link" href="#t25">25 · Dominio de Git</a>
-      <a class="indice-link" href="#t26">26 · CLI sobre MCPs</a>
-      <a class="indice-link" href="#t27">27 · Printing Press</a>
-      <a class="indice-link" href="#t28">28 · Tareas recurrentes</a>
-      <a class="indice-link" href="#t29">29 · Revisión profunda</a>
-      <a class="indice-link" href="#t30">30 · Hospedaje en VPS</a>
-      <a class="indice-link" href="#t31">31 · Bucle autónomo</a>
-      <a class="indice-link" href="#t32">32 · Agent SDK</a>
+      <p class="indice-grupo-titulo">Experto</p>
+      <a class="indice-link" href="#t23"><span class="num">23</span><span class="txt">Memoria persistente</span></a>
+      <a class="indice-link" href="#t24"><span class="num">24</span><span class="txt">Hooks productivos</span></a>
+      <a class="indice-link" href="#t25"><span class="num">25</span><span class="txt">Dominio de Git</span></a>
+      <a class="indice-link" href="#t26"><span class="num">26</span><span class="txt">CLI sobre MCPs</span></a>
+      <a class="indice-link" href="#t27"><span class="num">27</span><span class="txt">Printing Press</span></a>
+      <a class="indice-link" href="#t28"><span class="num">28</span><span class="txt">Tareas recurrentes</span></a>
+      <a class="indice-link" href="#t29"><span class="num">29</span><span class="txt">Revisión profunda</span></a>
+      <a class="indice-link" href="#t30"><span class="num">30</span><span class="txt">Hospedaje en VPS</span></a>
+      <a class="indice-link" href="#t31"><span class="num">31</span><span class="txt">Bucle autónomo</span></a>
+      <a class="indice-link" href="#t32"><span class="num">32</span><span class="txt">Agent SDK</span></a>
     </div>
   </nav>
 
-  <div class="contenido-principal">
+  <div class="contenido" id="contenido">
 
     <header class="encabezado">
       <div class="encabezado-top">
         <div class="encabezado-titulo">
-          <button class="btn-indice-mobile" id="btn-indice-mobile" type="button" aria-expanded="false" aria-controls="sidebar">☰ Índice</button>
-          <span><strong>32 trucos de Claude Code</strong> · para equipos de datos</span>
+          <button class="btn btn-indice-mobile" id="btn-indice-mobile" type="button" aria-expanded="false" aria-controls="sidebar">☰ Índice</button>
+          <h1>32 trucos</h1>
+          <span class="sub">para equipos de datos</span>
         </div>
-        <span class="progreso" id="progreso-contador" aria-live="polite">0 / 32</span>
+        <span class="progreso"><span class="progreso-barra" aria-hidden="true"><span id="progreso-barra"></span></span><span>Ya uso <strong id="progreso-contador" aria-live="polite">0 / 32</strong></span></span>
       </div>
       <div class="controles">
         <div class="buscador">
@@ -85,11 +102,12 @@
           <button class="filtro-btn" type="button" data-filtro="intermedio" aria-pressed="false">Intermedio</button>
           <button class="filtro-btn" type="button" data-filtro="experto" aria-pressed="false">Experto</button>
         </div>
-        <button class="btn-expandir" id="btn-expandir" type="button">Expandir todo</button>
+        <button class="btn btn-expandir" id="btn-expandir" type="button">Expandir todo</button>
       </div>
     </header>
 
     <main>
+      <p class="intro-trucos">Fichas cortas para el día a día: qué es, cuándo usarlo, cómo, un ejemplo con el stack de datos y el detalle que la mayoría se pierde. Abrí una ficha con clic y marcá el casillero cuando ya lo uses — el progreso queda guardado en este navegador.</p>
       <p class="sin-resultados" id="sin-resultados">Ningún truco coincide con la búsqueda.</p>
 
       <!-- ================================================================
@@ -1398,16 +1416,12 @@ ni warnings en el target de staging
     </main>
 
     <footer class="pie">
-      <p>Página de referencia standalone, sin frameworks ni build step. Verificada contra la documentación oficial de Claude Code al momento de escribirse (agosto 2026) — los comandos y flags pueden cambiar con nuevas versiones.</p>
+      <p>Verificada contra la documentación oficial de Claude Code al momento de escribirse (agosto 2026) — los comandos y flags pueden cambiar con nuevas versiones.</p>
+      <p><a href="../index.html">Inicio</a> · <a href="../claude-code-guia-equipo-datos.html">Guía completa</a> · <a href="../../docs/cheatsheet.md">docs/cheatsheet.md</a></p>
     </footer>
 
   </div>
 </div>
-
-<nav class="nav-flotante" aria-label="Navegación entre páginas">
-  <a href="../index.html">🏠 Inicio</a>
-  <a href="../claude-code-guia-equipo-datos.html">← Guía completa</a>
-</nav>
 
 <script src="script.js"></script>
 </body>

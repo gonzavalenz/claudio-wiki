@@ -19,11 +19,19 @@ Wiki de referencia en español sobre **Claude Code**: cómo funciona, cómo conf
 - **Cambios estructurales** (nuevas carpetas, reorganizar `docs/`, tocar `README.md` o `CONTRIBUTING.md`) los coordina el agente principal con el usuario antes de aplicarlos.
 - Si un agente no está seguro de si algo es su rol o no, pregunta antes de actuar en vez de asumir.
 
-## Cómo se pasan trabajo: `.agents/inbox/`
+## Cómo se pasan trabajo
 
-Para no depender de que el usuario copie y pegue todo manualmente entre sesiones, Antigravity CLI usa `.agents/inbox/` como buzón:
+Hay dos canales, de más a menos directo:
 
-- Cuando Antigravity hace una revisión, propone un borrador o encuentra algo para mejorar, lo escribe como un archivo Markdown en `.agents/inbox/` (nombre sugerido: `YYYY-MM-DD-tema.md`) en vez de aplicar el cambio directo sobre `docs/`, `buenas-practicas/`, `casos-de-uso/`, etc.
-- Claude Code revisa `.agents/inbox/` al empezar a trabajar en este repo: lee lo pendiente, decide qué incorporar (y dónde, siguiendo `CONTRIBUTING.md`) y qué descartar.
-- Una vez procesado un archivo, se borra de `.agents/inbox/` — el rastro queda en el historial de git si hace falta volver a verlo, no tiene sentido acumular archivos ya resueltos.
-- Esto no cambia los roles de la sección anterior: Antigravity sigue sin decidir solo sobre estructura del repo. Lo único que cambia es el canal — un archivo en vez del chat.
+1. **Delegación desde Claude Code (preferido).** Claude invoca a Gemini en modo headless y solo lectura con la skill [`delegar-a-gemini`](.claude/skills/delegar-a-gemini/SKILL.md) (`agy -p ... --mode plan`). Sirve para tareas chicas: segunda opinión, revisión de términos/links, resúmenes, borradores cortos. Gemini no edita archivos; Claude evalúa la respuesta y aplica lo que corresponda. Detalle en [docs/17-multi-agente-gemini.md](docs/17-multi-agente-gemini.md).
+2. **Buzón `.agents/inbox/`.** Para revisiones que se procesan después (o cuando el usuario corre Antigravity por su cuenta), el resultado se guarda como Markdown en `.agents/inbox/YYYY-MM-DD-tema.md` en vez de aplicarse directo sobre `docs/`, `buenas-practicas/`, `casos-de-uso/`, etc.
+   - Claude Code revisa `.agents/inbox/` al empezar a trabajar en este repo: lee lo pendiente, decide qué incorporar (siguiendo `CONTRIBUTING.md`) y qué descartar.
+   - Un archivo procesado se borra; el rastro queda en el historial de git.
+
+Ninguno de los dos canales cambia los roles: Antigravity no decide sobre estructura del repo.
+
+> Nota: Gemini CLI (`gemini`) ya no funciona con cuentas individuales; se usa Antigravity CLI (`agy`).
+
+## Backlog de trabajo grande
+
+Cuando una tarea se reparte entre varios agentes, el agente principal deja el backlog en `.agents/backlog.md` con dueño y archivos de cada tarea, para que nadie edite archivos ajenos. Se borra cuando el trabajo se mergea.

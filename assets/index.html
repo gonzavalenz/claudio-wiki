@@ -3,132 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Code para equipos de datos</title>
-<meta name="description" content="Punto de entrada a la guía de referencia y a los 32 trucos de Claude Code para equipos de datos.">
+<title>Claude Code · guía práctica</title>
+<meta name="description" content="Guía práctica en español para sacarle el máximo a Claude Code: ruta de inicio, guía de referencia en cinco partes y 32 trucos para equipos de datos.">
+<link rel="stylesheet" href="css/base.css">
+<script src="js/site.js"></script>
 <style>
-:root{
-  --bg:#0f1417;
-  --panel:#161c20;
-  --panel-2:#1c2428;
-  --panel-3:#212a2f;
-  --border:#2a343a;
-  --border-soft:#232c31;
-  --text:#e6edf0;
-  --text-dim:#93a5ab;
-  --text-faint:#5b6b71;
-  --teal:#56c2b8;
-  --teal-soft:#17302d;
-  --amber:#e8a33d;
-  --amber-soft:#362a17;
-  --rust:#c6604a;
-  --rust-soft:#33211c;
-  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-}
-*{ box-sizing:border-box; }
-@media (prefers-reduced-motion: reduce){ *{ transition-duration:0.001ms !important; } }
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:var(--sans); font-size:16px; line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh; display:flex; flex-direction:column;
-}
-::selection{ background:var(--teal); color:#0b1213; }
-a{ color:var(--teal); text-decoration:none; }
-:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; border-radius:4px; }
+  /* estilos exclusivos de la portada */
+  .portada { max-width: 1040px; margin: 0 auto; padding: 0 var(--gutter); }
 
-.wrap{ max-width:980px; margin:0 auto; padding:0 clamp(20px,5vw,48px); width:100%; flex:1; }
+  .hero { padding: 56px 0 8px; }
+  .hero .eyebrow {
+    font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent-text); margin: 0 0 10px;
+  }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); max-width: 18ch; margin-bottom: 14px; }
+  .hero p.lede { color: var(--text-2); font-size: 18px; max-width: 58ch; margin: 0; }
+  .hero .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .hero .acciones .btn { padding: 10px 16px; font-size: 14.5px; }
 
-header.hero{ padding:72px 0 40px; }
-header.hero .eyebrow{ font-family:var(--mono); font-size:12.5px; color:var(--teal); letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px; }
-header.hero h1{ font-family:var(--mono); font-weight:600; font-size:clamp(26px,4vw,38px); line-height:1.2; margin:0 0 14px; color:#f4f1e9; letter-spacing:-0.01em; }
-header.hero p{ color:var(--text-dim); font-size:16px; max-width:62ch; margin:0; }
+  .bloque { margin-top: 56px; }
+  .bloque > h2 { font-size: 22px; margin-bottom: 4px; }
+  .bloque > p.sub { color: var(--text-2); margin: 0 0 20px; max-width: 62ch; }
 
-.cards{ display:grid; grid-template-columns:1fr 1fr; gap:20px; padding-bottom:80px; }
+  /* ruta de 5 pasos */
+  .pasos { list-style: none; padding: 0; margin: 0; counter-reset: paso; display: grid; gap: 10px; }
+  .pasos li {
+    counter-increment: paso; margin: 0;
+    display: grid; grid-template-columns: 40px 1fr; gap: 4px 14px; align-items: start;
+    padding: 14px 16px; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .pasos li::before {
+    content: counter(paso);
+    grid-row: span 2;
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent-strong); color: var(--on-accent); font-weight: 700; font-size: 15px;
+  }
+  .pasos h3 { font-size: 16px; margin: 4px 0 0; }
+  .pasos p { margin: 0; color: var(--text-2); font-size: 14.5px; }
+  .pasos p a { white-space: nowrap; }
 
-.card{
-  background:var(--panel); border:1px solid var(--border); border-radius:12px;
-  padding:26px 26px 24px; display:flex; flex-direction:column;
-  transition:border-color .15s ease, transform .15s ease;
-}
-.card:hover{ border-color:var(--text-faint); transform:translateY(-2px); }
+  /* accesos */
+  .accesos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .acceso {
+    position: relative; display: flex; flex-direction: column;
+    padding: 20px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .acceso:hover { border-color: var(--border-strong); }
+  .acceso:focus-within { border-color: var(--accent); }
+  .acceso .badge { align-self: flex-start; margin-bottom: 12px; }
+  .acceso h3 { font-size: 18px; margin-bottom: 6px; }
+  .acceso h3 a { color: var(--heading); text-decoration: none; }
+  .acceso h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 10px; }
+  .acceso h3 a:focus-visible { outline: none; }
+  .acceso h3 a:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .acceso p { color: var(--text-2); font-size: 14.5px; margin: 0 0 14px; }
+  .acceso .ir { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--accent-text); }
 
-.card .tag{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; padding:3px 10px; border-radius:999px; width:fit-content; margin-bottom:16px; }
-.card.guia .tag{ background:var(--teal-soft); color:var(--teal); }
-.card.trucos .tag{ background:var(--amber-soft); color:var(--amber); }
+  /* mapa de la guía */
+  .mapa { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .mapa section { border-top: 2px solid var(--accent); padding-top: 12px; }
+  .mapa h3 { font-size: 15px; margin: 0 0 8px; }
+  .mapa h3 .n { color: var(--accent-text); font-family: var(--mono); margin-right: 6px; }
+  .mapa ul { list-style: none; padding: 0; margin: 0; }
+  .mapa li { margin: 0 0 4px; font-size: 14px; }
+  .mapa a { color: var(--text-2); text-decoration: none; }
+  .mapa a:hover { color: var(--heading); text-decoration: underline; }
 
-.card h2{ font-family:var(--mono); font-size:19px; color:#f4f1e9; margin:0 0 10px; letter-spacing:-0.01em; }
-.card > p{ color:var(--text-dim); font-size:14.5px; margin:0 0 18px; }
-
-.card ul{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:8px; }
-.card li{ font-size:13.5px; color:var(--text-dim); padding-left:16px; position:relative; }
-.card li::before{ content:"·"; position:absolute; left:0; color:var(--text-faint); }
-.card.guia li::before{ color:var(--teal); }
-.card.trucos li::before{ color:var(--amber); }
-
-.card-foot{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:16px; border-top:1px solid var(--border-soft); }
-.badge{ font-family:var(--mono); font-size:12px; color:var(--text-faint); }
-.enter{ font-family:var(--mono); font-size:13.5px; color:var(--text); display:inline-flex; align-items:center; gap:6px; }
-.card.guia .enter{ color:var(--teal); }
-.card.trucos .enter{ color:var(--amber); }
-
-.card > a.overlay{ position:absolute; inset:0; }
-.card{ position:relative; }
-
-footer.pie{ max-width:980px; margin:0 auto; padding:0 clamp(20px,5vw,48px) 40px; color:var(--text-faint); font-size:13px; font-family:var(--mono); }
-
-@media (max-width:720px){
-  .cards{ grid-template-columns:1fr; }
-  header.hero{ padding:48px 0 32px; }
-}
+  /* en el repo */
+  .repo-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .repo-links a { font-family: var(--mono); font-size: 13px; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-<div class="wrap">
+<header class="topnav">
+  <a class="topnav-brand" href="index.html"><span class="marca" aria-hidden="true">&gt;_</span><span class="nombre">Claude Code · guía</span></a>
+  <nav aria-label="Secciones del sitio">
+    <ul class="topnav-links">
+      <li><a href="index.html" aria-current="page">Inicio</a></li>
+      <li><a href="claude-code-guia-equipo-datos.html">Guía</a></li>
+      <li><a href="32-trucos-claude-code/index.html">32 trucos</a></li>
+      <li><a href="claude-code-guia-equipo-datos.html#cheatsheet">Referencia<span class="largo"> rápida</span></a></li>
+    </ul>
+  </nav>
+  <button class="theme-toggle" type="button" aria-label="Cambiar tema">☾</button>
+</header>
+
+<main class="portada" id="contenido">
+
   <header class="hero">
-    <div class="eyebrow">Claude Code · equipo de datos</div>
-    <h1>Dos formas de mirar lo mismo.</h1>
-    <p>Una guía de referencia para entender cada pieza de punta a punta, y una lista de trucos concretos para el día a día. Elegí por dónde entrar.</p>
+    <p class="eyebrow">Claude Code · en español · para equipos de datos</p>
+    <h1>Todo lo que necesitás para usar bien Claude Code.</h1>
+    <p class="lede">Una guía práctica: qué es cada pieza, cómo se configura y los trucos que ahorran tiempo, con ejemplos de Python, GCP, BigQuery, dbt y Airflow.</p>
+    <div class="acciones">
+      <a class="btn btn-primario" href="#empeza-aca">Empezá acá</a>
+      <a class="btn" href="claude-code-guia-equipo-datos.html">Abrir la guía</a>
+      <a class="btn" href="32-trucos-claude-code/index.html">Ver los 32 trucos</a>
+    </div>
   </header>
 
-  <div class="cards">
-    <article class="card guia">
-      <span class="tag">Guía de referencia</span>
-      <h2>Claude Code para equipos de datos</h2>
-      <p>Qué es cada pieza — agentes, modelos, memoria, skills, subagents, hooks, MCP — cómo se usa y cuándo conviene, con ejemplos para un stack de Python, GCP y BigQuery.</p>
-      <ul>
-        <li>Fundamentos y bucle agéntico</li>
-        <li>Modelos, permisos y memoria</li>
-        <li>Skills, subagents, hooks y MCP</li>
-        <li>Arquitecturas de integración, estructura y costos</li>
-      </ul>
-      <div class="card-foot">
-        <span class="badge">16 secciones</span>
-        <span class="enter">Entrar →</span>
-      </div>
-      <a class="overlay" href="claude-code-guia-equipo-datos.html" aria-label="Ir a la guía de referencia"></a>
-    </article>
+  <section class="bloque" id="empeza-aca" aria-labelledby="empeza-titulo">
+    <h2 id="empeza-titulo">Empezá acá: la ruta mínima</h2>
+    <p class="sub">Si tenés una hora, leé esto en orden y ya trabajás mejor que la mayoría. Después, tené a mano la <a href="claude-code-guia-equipo-datos.html#cheatsheet">referencia rápida</a>.</p>
+    <ol class="pasos">
+      <li>
+        <h3>Instalación y primeros pasos</h3>
+        <p>Instalá con el instalador nativo, entrá a tu repo, corré <code>claude</code> y después <code>/init</code>. Arrancá con una tarea chica. <a href="claude-code-guia-equipo-datos.html#instalacion">Cap. 03 →</a></p>
+      </li>
+      <li>
+        <h3>Contexto: la regla que más impacta</h3>
+        <p>Una tarea por sesión, <code>/clear</code> al cambiar de tarea, <code>/compact</code> con instrucciones y <code>/context</code> para ver qué lo ocupa. <a href="claude-code-guia-equipo-datos.html#contexto">Cap. 05 →</a></p>
+      </li>
+      <li>
+        <h3>Memoria: un CLAUDE.md corto</h3>
+        <p>Las reglas fijas del proyecto (comandos de test, convenciones, qué no tocar) para no reexplicar nada en cada sesión. <a href="claude-code-guia-equipo-datos.html#memoria">Cap. 06 →</a></p>
+      </li>
+      <li>
+        <h3>Plan mode y checkpoints</h3>
+        <p>Explorar → planificar → implementar → commitear. <kbd>Shift</kbd>+<kbd>Tab</kbd> para planificar sin editar; <code>/rewind</code> para volver atrás. <a href="claude-code-guia-equipo-datos.html#plan-mode">Cap. 09 →</a></p>
+      </li>
+      <li>
+        <h3>Buenas prácticas</h3>
+        <p>Los mandamientos en una página: regla → por qué → cómo. <a href="../buenas-practicas/README.md">buenas-practicas/ →</a></p>
+      </li>
+    </ol>
+  </section>
 
-    <article class="card trucos">
-      <span class="tag">Referencia rápida</span>
-      <h2>32 trucos de Claude Code</h2>
-      <p>Técnicas concretas verificadas contra la documentación oficial, organizadas en tres niveles, con buscador, filtros y progreso guardado en el navegador.</p>
-      <ul>
-        <li>Básico: CLAUDE.md, modo Plan, contexto</li>
-        <li>Intermedio: subagentes, skills, rewind</li>
-        <li>Experto: hooks, Agent SDK, bucle autónomo</li>
-      </ul>
-      <div class="card-foot">
-        <span class="badge">32 trucos · 3 niveles</span>
-        <span class="enter">Entrar →</span>
-      </div>
-      <a class="overlay" href="32-trucos-claude-code/index.html" aria-label="Ir a los 32 trucos"></a>
-    </article>
-  </div>
-</div>
+  <section class="bloque" aria-labelledby="accesos-titulo">
+    <h2 id="accesos-titulo">Elegí por dónde seguir</h2>
+    <p class="sub">Tres formas de usar el material según lo que necesites en este momento.</p>
+    <div class="accesos">
+      <article class="acceso">
+        <span class="badge badge-acento">Para aprender</span>
+        <h3><a href="claude-code-guia-equipo-datos.html">Guía de referencia</a></h3>
+        <p>Cinco partes, de los fundamentos a la automatización. Cada capítulo arranca con un resumen «En 30 segundos».</p>
+        <span class="ir" aria-hidden="true">Abrir la guía →</span>
+      </article>
+      <article class="acceso">
+        <span class="badge">Para el día a día</span>
+        <h3><a href="32-trucos-claude-code/index.html">32 trucos</a></h3>
+        <p>Fichas cortas en tres niveles, con buscador, filtros, código para copiar y tu progreso guardado en el navegador.</p>
+        <span class="ir" aria-hidden="true">Ver los trucos →</span>
+      </article>
+      <article class="acceso">
+        <span class="badge">Para consultar</span>
+        <h3><a href="claude-code-guia-equipo-datos.html#cheatsheet">Referencia rápida</a></h3>
+        <p>Tabla de «querés… → usá…»: comandos, modos y archivos de configuración en una sola vista.</p>
+        <span class="ir" aria-hidden="true">Ir a la referencia →</span>
+      </article>
+    </div>
+  </section>
 
-<footer class="pie">assets/ · sin frameworks ni build step · material de referencia, no fuente de verdad del contenido en docs/</footer>
+  <section class="bloque" aria-labelledby="mapa-titulo">
+    <h2 id="mapa-titulo">Mapa de la guía</h2>
+    <p class="sub">Los mismos capítulos que en <code>docs/</code>, agrupados en cinco partes.</p>
+    <div class="mapa">
+      <section>
+        <h3><span class="n">1</span>Entender</h3>
+        <ul>
+          <li><a href="claude-code-guia-equipo-datos.html#fundamentos">Fundamentos</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#claude-code">Qué es Claude Code</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#instalacion">Instalación</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#modelos">Modelos y esfuerzo</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#contexto">Contexto</a></li>
+        </ul>
+      </section>
+      <section>
+        <h3><span class="n">2</span>Configurar</h3>
+        <ul>
+          <li><a href="claude-code-guia-equipo-datos.html#memoria">Memoria (CLAUDE.md)</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#permisos">Permisos</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#comandos">Comandos y atajos</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#plan-mode">Plan mode y checkpoints</a></li>
+        </ul>
+      </section>
+      <section>
+        <h3><span class="n">3</span>Extender</h3>
+        <ul>
+          <li><a href="claude-code-guia-equipo-datos.html#skills">Skills</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#subagents">Subagents</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#hooks">Hooks</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#mcp">MCP</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#plugins">Plugins</a></li>
+        </ul>
+      </section>
+      <section>
+        <h3><span class="n">4</span>Escalar</h3>
+        <ul>
+          <li><a href="claude-code-guia-equipo-datos.html#paralelismo">Paralelismo y worktrees</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#automatizacion">Automatización</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#multi-agente">Multi-agente con Gemini</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#arquitecturas">Arquitecturas de integración</a></li>
+        </ul>
+      </section>
+      <section>
+        <h3><span class="n">5</span>Día a día</h3>
+        <ul>
+          <li><a href="claude-code-guia-equipo-datos.html#estructura">Estructura de proyecto</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#flujos">Flujos de trabajo</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#costos">Costos</a></li>
+          <li><a href="claude-code-guia-equipo-datos.html#cheatsheet">Referencia rápida</a></li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section class="bloque" aria-labelledby="repo-titulo">
+    <h2 id="repo-titulo">En el repo (markdown)</h2>
+    <p class="sub">La fuente de verdad del contenido. Se abren como texto en el navegador o, mejor, en tu editor o en GitHub.</p>
+    <div class="repo-links">
+      <a class="btn" href="../README.md">README.md</a>
+      <a class="btn" href="../docs/cheatsheet.md">docs/cheatsheet.md</a>
+      <a class="btn" href="../buenas-practicas/README.md">buenas-practicas/</a>
+      <a class="btn" href="../casos-de-uso/README.md">casos-de-uso/</a>
+      <a class="btn" href="../ejemplos/README.md">ejemplos/</a>
+      <a class="btn" href="../docs/git-basico.md">docs/git-basico.md</a>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <p>Páginas estáticas, sin frameworks ni build step: se abren con doble clic. Basadas en la documentación oficial de Claude Code.</p>
+  </footer>
+</main>
 
 </body>
 </html>
