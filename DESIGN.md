@@ -104,7 +104,7 @@ Aplica a diagramas, HTML y cualquier diseño:
 ## Fases
 
 1. Base: este documento, `AGENTS.md` y agentes. ✓
-2. Conceptos núcleo: `agent`, `context`, `memory`, `tools-and-permissions`, `skills`, `subagents`, `hooks`, `mcp`. ← actual
-3. `rag`, `multi-agent`, `evals`, `costs`, `tools/claude-code.md` (incluye `mods`) y `practices.md`.
+2. Conceptos núcleo: `agent`, `context`, `memory`, `tools-and-permissions`, `skills`, `subagents`, `hooks`, `mcp`. ✓
+3. `rag`, `multi-agent`, `evals`, `costs`, `tools/claude-code.md` (incluye `mods`) y `practices.md`. ← actual
 4. `scripts/build_site.py` (base: `assets/build_guia.py` de la rama `docs/mejora-integral`) y diagramas.
 5. Práctica: RAG local sobre la wiki (Python + DuckDB) en `examples/`.

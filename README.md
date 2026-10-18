@@ -16,6 +16,15 @@ Wiki personal sobre agentes de IA para desarrollo: cómo funcionan, cómo extend
 | [subagents](concepts/subagents.md) | Delegar con contexto aislado |
 | [hooks](concepts/hooks.md) | Reglas deterministas en el ciclo del agent |
 | [mcp](concepts/mcp.md) | Protocolo para conectar tools y datos externos |
+| [multi-agent](concepts/multi-agent.md) | Patrones, agent teams y worktrees; cuándo no conviene |
+| [rag](concepts/rag.md) | Retrieval: agentic search vs embeddings; RAG local con DuckDB |
+| [evals](concepts/evals.md) | Medir prompts, skills y agents |
+| [costs](concepts/costs.md) | De qué depende el costo y cómo medirlo |
+
+| Otras páginas | |
+|---|---|
+| [practices](practices.md) | Reglas accionables: regla → por qué |
+| [tools/claude-code](tools/claude-code.md) | Lo exclusivo de Claude Code: `mods`, plugins, `/rewind`, `/goal`, review |
 
 ## Repo
 

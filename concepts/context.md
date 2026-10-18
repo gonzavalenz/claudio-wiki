@@ -31,7 +31,7 @@ Los tamaños de ventana y los precios cambian seguido. Consultalos en [Context w
 | `/compact [foco]` | Resumir. Es caro si el cache está frío. |
 | `/rewind` | Volver a un checkpoint. Reusa el cache; es mejor que compactar para descartar un camino. |
 | `/btw` | Pregunta lateral que no entra al historial. |
-| `/usage` | Consumo y uso del cache. |
+| `/usage` | Consumo y uso del cache. `/cost` y `/stats` son alias. |
 
 - **Auto-compaction**: primero limpia tool outputs viejos y después resume. El umbral se ajusta con `/autocompact <tokens>` o el setting `autoCompactWindow`.
 - **Qué sobrevive a una compaction**: el `CLAUDE.md` raíz, las reglas sin `paths:`, la auto memory y el plan. **No sobreviven** las instrucciones dadas en el chat, las reglas con `paths:` ni los `CLAUDE.md` anidados (estos últimos se recargan cuando se vuelve a tocar un archivo que los dispara).
