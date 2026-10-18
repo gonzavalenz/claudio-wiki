@@ -1,0 +1,53 @@
+:root {
+  --fondo: #141414;
+  --panel: #1c1c1c;
+  --borde: #2e2e2e;
+  --texto: #e6e6e6;
+  --tenue: #9a9a9a;
+  --acento: #ef4444;
+  --acento-suave: #3a1717;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  background: var(--fondo);
+  color: var(--texto);
+  font: 16px/1.6 system-ui, -apple-system, sans-serif;
+}
+nav {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  padding: 20px 16px; background: var(--panel); border-right: 1px solid var(--borde);
+}
+nav h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--tenue); margin: 20px 0 6px; }
+nav ul, nav ol { list-style: none; margin: 0; padding: 0; }
+nav a { display: block; padding: 3px 8px; border-radius: 4px; color: var(--texto); text-decoration: none; }
+nav a:hover { background: var(--borde); }
+nav a[aria-current="page"] { background: var(--acento-suave); color: var(--acento); }
+#buscar {
+  width: 100%; padding: 8px 10px; border-radius: 6px;
+  border: 1px solid var(--borde); background: var(--fondo); color: var(--texto); font: inherit;
+}
+#buscar:focus { outline: 2px solid var(--acento); outline-offset: 1px; }
+#resultados small { display: block; color: var(--tenue); font-size: 12px; }
+main { max-width: 860px; padding: 32px 40px 80px; }
+h1 { margin-top: 0; }
+h1, h2, h3 { line-height: 1.25; }
+h2 { margin-top: 2em; padding-bottom: 4px; border-bottom: 1px solid var(--borde); }
+a { color: var(--acento); }
+a:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: .9em; background: var(--panel); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--panel); border: 1px solid var(--borde); border-radius: 6px; padding: 14px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 0; padding: 4px 16px; border-left: 3px solid var(--acento); color: var(--tenue); }
+.tabla { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid var(--borde); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--panel); }
+@media (max-width: 760px) {
+  body { display: block; }
+  nav { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--borde); }
+  main { padding: 20px 16px 60px; }
+}
