@@ -90,7 +90,6 @@ Son `subagents` en `.claude/agents/`, con un prompt corto y solo los tools que n
 - **Markdown**: todo el contenido.
 - **Python**: scripts. Stdlib salvo que haga falta otra cosa.
 - **Excalidraw**: con la extensión de VS Code, sin MCP (requiere API key).
-- **DuckDB**: para el ejercicio de RAG local sobre la wiki.
 - **HTML/CSS/JS**: solo como salida generada.
 
 ## Estilo visual
@@ -105,6 +104,7 @@ Aplica a diagramas, HTML y cualquier diseño:
 
 1. Base: este documento, `AGENTS.md` y agentes. ✓
 2. Conceptos núcleo: `agent`, `context`, `memory`, `tools-and-permissions`, `skills`, `subagents`, `hooks`, `mcp`. ✓
-3. `rag`, `multi-agent`, `evals`, `costs`, `tools/claude-code.md` (incluye `mods`) y `practices.md`. ← actual
-4. `scripts/build_site.py` (base: `assets/build_guia.py` de la rama `docs/mejora-integral`) y diagramas.
-5. Práctica: RAG local sobre la wiki (Python + DuckDB) en `examples/`.
+3. `rag`, `multi-agent`, `evals`, `costs`, `tools/claude-code.md` (incluye `mods`) y `practices.md`. ✓
+4. `scripts/build_site.py` (base: `assets/build_guia.py` de la rama `docs/mejora-integral`) y diagramas. ← actual
+
+El RAG local sobre la wiki se descartó: la wiki entra entera en contexto, así que no lo justifica. Queda documentado en [rag](concepts/rag.md).

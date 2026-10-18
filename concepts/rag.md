@@ -46,7 +46,7 @@ LIMIT 5;
 - **`vss` (HNSW)**: indexa con `CREATE INDEX ... USING HNSW (vec) WITH (metric = 'cosine')`. Solo se usa con `ORDER BY <dist>(...) LIMIT k`; confirmalo con `EXPLAIN` (tiene que aparecer `HNSW_INDEX_SCAN`). El índice vive en RAM. En una base en disco hace falta `SET hnsw_enable_experimental_persistence = true`, que es experimental y tiene riesgo de corrupción.
 - **`fts` (BM25)**: `PRAGMA create_fts_index(...)` + `match_bm25(...)` para el híbrido. El índice **no se actualiza solo**: hay que recrearlo con `overwrite := 1` cuando cambia la tabla.
 
-El ejercicio completo va en `examples/` (fase 5).
+El SQL de esta sección es `no probado`: queda documentado como referencia para un proyecto donde el corpus lo justifique.
 
 ## En Claude Code
 
