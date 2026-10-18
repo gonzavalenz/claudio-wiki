@@ -1,6 +1,6 @@
 # Subagents
 
-> verificado: 2026-10-18 · fuentes: [Subagents (Claude Code)](https://code.claude.com/docs/en/sub-agents), [Agent teams](https://code.claude.com/docs/en/agent-teams), [Gemini CLI subagents](https://geminicli.com/docs/core/subagents/), [VS Code subagents](https://code.visualstudio.com/docs/copilot/agents/subagents), [Antigravity subagents](https://antigravity.google/docs/subagents), [Copilot custom agents](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents)
+> verificado: 2026-10-18 · fuentes: [Subagents (Claude Code)](https://code.claude.com/docs/en/sub-agents), [Agent teams](https://code.claude.com/docs/en/agent-teams), [Gemini CLI subagents](https://geminicli.com/docs/core/subagents/), [VS Code subagents](https://code.visualstudio.com/docs/copilot/agents/subagents), [Antigravity subagents](https://antigravity.google/docs/subagents), [Copilot custom agents](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents), [Gemini CLI docs](https://geminicli.com/docs/)
 
 Un subagent es un agent especializado al que el agent principal le delega una tarea. Corre en **su propia context window**, con su propio system prompt, tools y modelo, y **devuelve solo un resumen**.
 
@@ -52,7 +52,7 @@ Revisá los archivos indicados y devolvé hallazgos con archivo:línea.
 
 ## En otras herramientas
 
-- **Gemini CLI**: `.gemini/agents/*.md`, se invoca con `@nombre`. `no probado`
+- **Gemini CLI**: `.gemini/agents/*.md`, se invoca con `@nombre`. Para el tier gratis y Google One fue reemplazado por Antigravity CLI (2026-06-18). `no probado`
 - **Antigravity**: `.agents/agents/`. Si no declarás `tools`, el default es **ninguno**. `no probado`
 - **Copilot**: "custom agents" en `.github/agents/`. En VS Code se llaman `.agent.md`. `no probado`
 

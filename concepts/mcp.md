@@ -11,7 +11,7 @@ Model Context Protocol es un protocolo abierto, cliente/servidor sobre JSON-RPC 
 - Casos con auth (OAuth) y datos en vivo.
 
 **No usarlo cuando:**
-- Ya existe un CLI que el agent usa bien por shell (`gh`, `psql`, `duckdb`). Es más simple y no tiene costo fijo de contexto. (Esta es una heurística de la comunidad, no algo que diga la doc oficial.)
+- Ya existe un CLI que el agent usa bien por shell (`gh`, `psql`, `duckdb`). Es más simple y no tiene costo fijo de contexto. La doc oficial lo dice: "CLI tools are the most context-efficient way" ([best practices](https://code.claude.com/docs/en/best-practices#use-cli-tools)).
 - El server expone decenas de tools que no vas a usar.
 - No confiás en el server.
 
