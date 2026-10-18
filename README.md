@@ -1,52 +1,15 @@
-# Claude Code — Guía, buenas prácticas y casos de uso
+# Coding agents — referencia técnica
 
-Este repo es una wiki de referencia sobre **Claude Code**: cómo funciona, cómo configurarlo, buenas prácticas de uso y casos de uso reales, pensada para ir creciendo con el tiempo a medida que sumamos experiencia usándolo.
+Wiki personal sobre agentes de IA para desarrollo: cómo funcionan, cómo extenderlos (`skills`, `subagents`, `hooks`, `MCP`, RAG, `mods`) y cómo aplicarlos en ingeniería de datos. Agnóstica, con Claude Code como herramienta principal de ejemplo.
 
-No es documentación oficial de Anthropic — es una base de conocimiento propia, con nuestras convenciones, ejemplos y decisiones.
+> 🚧 En reconstrucción. Ver el plan en [DESIGN.md](DESIGN.md#fases).
 
-## Estado
+## Índice
 
-🚧 En construcción. La estructura ya está armada; el contenido se va completando de a poco.
+Se completa a medida que se escriben las páginas de `concepts/`.
 
-## Estructura del repo
+## Repo
 
-```
-docs/                 Guía conceptual, capítulo por capítulo (fundamentos, modelos, memoria, skills, hooks, MCP, etc.)
-buenas-practicas/      Reglas y recomendaciones de uso ("los mandamientos"): qué hacer y qué evitar, y por qué.
-casos-de-uso/          Escenarios reales resueltos con Claude Code, de punta a punta.
-ejemplos/              Configuraciones, prompts, comandos y snippets reutilizables (CLAUDE.md, hooks, skills, slash commands).
-context/               Contexto personal (stack de laburo y personal) para orientar ejemplos y recomendaciones.
-assets/                Material de referencia no versionado como código: mini-sitio HTML standalone (assets/index.html) con la guía visual y los 32 trucos, cross-linkeados.
-```
-
-## Contexto
-
-[`context/stack.md`](context/stack.md) — stack tecnológico propio (laburo y personal), para que los ejemplos y casos de uso del resto del repo se puedan orientar a herramientas concretas.
-
-## Índice de la guía (`docs/`)
-
-1. [Fundamentos: LLM, agente y el bucle agéntico](docs/01-fundamentos.md)
-2. [Qué es Claude Code y dónde vive](docs/02-que-es-claude-code.md)
-3. [Modelos: cuál usar para qué](docs/03-modelos.md)
-4. [Instalación y primeros pasos](docs/04-instalacion.md)
-5. [Memoria: que no haya que reexplicar el proyecto cada vez](docs/05-memoria.md)
-6. [Comandos: los atajos con `/`](docs/06-comandos-slash.md)
-7. [Permisos: cuánta autonomía le das](docs/07-permisos.md)
-8. [Skills: empaquetar conocimiento y procedimientos](docs/08-skills.md)
-9. [Subagents: delegar sin ensuciar la conversación principal](docs/09-subagents.md)
-10. [Hooks: reglas que no dependen de que el modelo se acuerde](docs/10-hooks.md)
-11. [MCP: conectar herramientas y datos externos](docs/11-mcp.md)
-12. [Arquitecturas de integración](docs/12-arquitecturas-de-integracion.md)
-13. [Estructura de proyecto para sacarle el jugo](docs/13-estructura-de-proyecto.md)
-14. [Flujos de trabajo para el día a día](docs/14-flujos-de-trabajo.md)
-15. [Costos y buenas prácticas de uso](docs/15-costos.md)
-16. [Cheatsheet / referencia rápida](docs/cheatsheet.md)
-
-## Convenciones
-
-- **Idioma**: contenido en español. Los términos técnicos propios de Claude Code (`skills`, `hooks`, `subagents`, `MCP`, `slash commands`, etc.) se dejan en inglés, sin traducir, porque así se los conoce en la documentación y en la comunidad. Ver [CONTRIBUTING.md](CONTRIBUTING.md).
-- **Fuente visual**: `assets/` tiene un mini-sitio HTML standalone, sin build step, con punto de entrada en `assets/index.html`: la guía completa (`claude-code-guia-equipo-datos.html`) y los 32 trucos (`32-trucos-claude-code/`), navegables entre sí. Se mantienen aparte como pieza de referencia/diseño, no como fuente de verdad del contenido escrito en `docs/`.
-
-## Cómo contribuir
-
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) para las convenciones de estilo y estructura antes de sumar contenido, y [GIT.md](GIT.md) para el flujo de git del repo (ramas, PRs, merge).
+- [DESIGN.md](DESIGN.md): objetivo, estructura y convenciones.
+- [AGENTS.md](AGENTS.md): reglas para agentes.
+- [GIT.md](GIT.md): flujo de git.
