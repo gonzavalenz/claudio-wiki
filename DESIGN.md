@@ -11,7 +11,7 @@ Referencia técnica personal sobre **coding agents**: cómo funcionan (LLM + too
 
 ## Principios
 
-1. **Agnóstico primero.** Cada concepto se explica en general. Lo específico de una herramienta va en una sección `## En <herramienta>`, o en `tools/` si no tiene equivalente general (por ejemplo, `mods` en Claude Code).
+1. **Agnóstico primero.** Cada concepto se explica en general. Lo específico va en `## En Claude Code` y `## En otras herramientas` (con fuente y `no probado` si aplica), o en `tools/` si no tiene equivalente general (por ejemplo, `mods` en Claude Code).
 2. **Mínimo texto.** Una página = un concepto, con un máximo de ~150 líneas. Si algo ya está bien explicado en la documentación oficial, se enlaza en vez de reescribirse.
 3. **Vigencia explícita.** Cada página declara sus fuentes y la fecha en que se verificó.
 4. **Una sola fuente de verdad: Markdown.** El HTML se genera a pedido en `site/` y no se versiona.
@@ -45,7 +45,7 @@ Una carpeta se crea recién cuando tiene contenido.
 ### Herramientas
 
 - **Claude Code**: la principal. Ahí se prueba todo.
-- **Gemini / Antigravity** y **GitHub Copilot**: se suman como secciones `## En <herramienta>` cuando aporten. Lo que no se pueda probar acá se marca `no probado`.
+- **Gemini / Antigravity** y **GitHub Copilot**: se suman en `## En otras herramientas` cuando aporten, siempre con fuente. Lo que no se pueda probar acá se marca `no probado`.
 
 ## Plantilla de concepto
 
@@ -59,6 +59,7 @@ Definición en 1–2 frases.
 ## Cuándo usarlo y cuándo no
 ## Cómo funciona
 ## En Claude Code
+## En otras herramientas
 ## Errores comunes
 ## Ver también
 ```
@@ -102,8 +103,8 @@ Aplica a diagramas, HTML y cualquier diseño:
 
 ## Fases
 
-1. Base: este documento, `AGENTS.md` y agentes. ← actual
-2. Conceptos núcleo: `agent`, `context`, `memory`, `tools-and-permissions`, `skills`, `subagents`, `hooks`, `mcp`.
+1. Base: este documento, `AGENTS.md` y agentes. ✓
+2. Conceptos núcleo: `agent`, `context`, `memory`, `tools-and-permissions`, `skills`, `subagents`, `hooks`, `mcp`. ← actual
 3. `rag`, `multi-agent`, `evals`, `costs`, `tools/claude-code.md` (incluye `mods`) y `practices.md`.
 4. `scripts/build_site.py` (base: `assets/build_guia.py` de la rama `docs/mejora-integral`) y diagramas.
 5. Práctica: RAG local sobre la wiki (Python + DuckDB) en `examples/`.
