@@ -31,3 +31,4 @@ Wiki personal sobre agentes de IA para desarrollo: cómo funcionan, cómo extend
 - [DESIGN.md](DESIGN.md): objetivo, estructura y convenciones.
 - [AGENTS.md](AGENTS.md): reglas para agentes.
 - [GIT.md](GIT.md): flujo de git.
+- `python3 scripts/build_site.py`: genera la versión HTML en `site/` (no se versiona). Con `--check` solo valida los links.
