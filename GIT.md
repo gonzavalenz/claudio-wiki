@@ -1,8 +1,6 @@
 # Flujo de git
 
-Este documento define cómo se maneja el control de versiones en este repo. Es un flujo simple (GitHub Flow) pensado para ir practicando git de forma genuina, sin la complejidad de modelos como Gitflow. No confundir con `CONTRIBUTING.md`, que habla de convenciones de *contenido* (idioma, formato, dónde va cada cosa), no de proceso.
-
-Si estás recién arrancando con git y querés entender los conceptos (commit, branch, merge, PR) antes de esta convención puntual, ver primero [docs/git-basico.md](docs/git-basico.md).
+Este documento define cómo se maneja el control de versiones en este repo. Es un flujo simple (GitHub Flow) pensado para ir practicando git de forma genuina, sin la complejidad de modelos como Gitflow. Las convenciones de contenido están en [DESIGN.md](DESIGN.md).
 
 ## Regla principal
 
